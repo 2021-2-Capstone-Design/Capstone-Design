@@ -89,7 +89,7 @@ cap.release()
 cv2.destroyAllWindows()
 
 ###start step2
-extract_file = open('result.txt','w')
+extract_file = open('extractsamples/result.txt','w')
 cap = cv2.VideoCapture('sample_dance/videoplayback.mp4')
 fps = cap.get(cv2.CAP_PROP_FPS)
 #control frame rate
