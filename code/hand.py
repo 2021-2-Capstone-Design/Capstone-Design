@@ -29,6 +29,7 @@ mpHands = mp.solutions.hands
 my_hands = mpHands.Hands()
 mpDraw = mp.solutions.drawing_utils
 
+
 cap = cv2.VideoCapture(0)
 ifExit = False #yeah 손동작 인식했는지
 
