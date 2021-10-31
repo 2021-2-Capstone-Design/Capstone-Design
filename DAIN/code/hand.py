@@ -11,10 +11,7 @@ from mediapipe.python.solutions import hands
 #step3 gesture 탐지
 #step4 v 감지 -> 영상 재생
 
-<<<<<<< HEAD
 
-=======
->>>>>>> main
 ###gesture list
 def dist(x1,y1,x2,y2): # 비교를 위한 거리 계산 함수
     return math.sqrt( math.pow(x1-x2,2) + math.pow(y1-y2,2))
@@ -33,14 +30,8 @@ mpHands = mp.solutions.hands
 my_hands = mpHands.Hands()
 mpDraw = mp.solutions.drawing_utils
 
-<<<<<<< HEAD:code/hand.py
-<<<<<<< HEAD
-"""
-=======
->>>>>>> main
-=======
 
->>>>>>> 4b3726932669eb637f0d584cea197a4960569849:DAIN/code/hand.py
+"""
 cap = cv2.VideoCapture(0)
 ifExit = False #yeah 손동작 인식했는지
 
@@ -92,8 +83,6 @@ while cap.isOpened():
             # flag = True
             # for i in range(0,5): # 손동작 맞는지 파악
             #     if(gesture[i]!=hand_open[i]):
-<<<<<<< HEAD
-=======
             #         flag = False # 하나라도 틀리면 False
             # if(flag == True): ifExit = True
                     
@@ -103,7 +92,8 @@ while cap.isOpened():
         break
 cap.release()
 cv2.destroyAllWindows()
-'''
+"""
+
 # step 1 end
 
 
@@ -177,7 +167,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
 print('*****extract success*****')
 ###end step2
 
-
+'''
 ###start step3
 cap = cv2.VideoCapture(0)
 ifExit = False #yeah 손동작 인식했는지
@@ -227,7 +217,6 @@ while cap.isOpened():
             # flag = True
             # for i in range(0,5): # 손동작 맞는지 파악
             #     if(gesture[i]!=hand_open[i]):
->>>>>>> main
             #         flag = False # 하나라도 틀리면 False
             # if(flag == True): ifExit = True
                     
@@ -237,7 +226,11 @@ while cap.isOpened():
         break
 cap.release()
 cv2.destroyAllWindows()
-<<<<<<< HEAD
+
+
+'''
+
+
 """
 ###start step2
 extract_file = open('extractsamples/result_for_back.txt','w')
@@ -296,7 +289,11 @@ print('extract_count : %d' %extract_count)
 ###end step2
 
 """
+
+
+
 ###start step3
+'''
 cap = cv2.VideoCapture(0)
 ifExit = False #yeah 손동작 인식했는지
 
@@ -353,10 +350,11 @@ while cap.isOpened():
     if cv2.waitKey(5) & 0xFF == 27:
         break
 cap.release()
-=======
+'''
 ###end step3
 
 ###start step4
+'''
 video =cv2.VideoCapture('DAIN/sample_dance/videoplayback.mp4')
 player = MediaPlayer('DAIN/sample_dance/videoplayback.mp4')
 fps = video.get(cv2.CAP_PROP_FPS)
@@ -375,11 +373,9 @@ while video.isOpened():
         img, t = audio_frame
     
 video.release()
->>>>>>> main
 cv2.destroyAllWindows()
 ###end step3
 
-<<<<<<< HEAD
 ###start step4
 video =cv2.VideoCapture('sample_dance/videoplayback.mp4')
 player = MediaPlayer('sample_dance/videoplayback.mp4')
@@ -400,16 +396,10 @@ while video.isOpened():
     
 video.release()
 cv2.destroyAllWindows()
-=======
-###end step4
-<<<<<<< HEAD:code/hand.py
->>>>>>> main
-
+'''
 ###end step4
 
 
-=======
->>>>>>> 4b3726932669eb637f0d584cea197a4960569849:DAIN/code/hand.py
 """
 # dance practice 영상 재생 & 내 영상까지 보이게 하기
 dance = cv2.VideoCapture('/sampledance/videoplayback.mp4')
