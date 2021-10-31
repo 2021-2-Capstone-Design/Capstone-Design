@@ -1,4 +1,3 @@
-
 if __name__ == "__main__":
     f = open("code/result.txt",'r')
     dance_video = f.readlines()

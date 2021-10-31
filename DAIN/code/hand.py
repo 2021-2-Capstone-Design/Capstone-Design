@@ -33,6 +33,8 @@ mpDraw = mp.solutions.drawing_utils
 cap = cv2.VideoCapture(0)
 ifExit = False #yeah 손동작 인식했는지
 
+# step 1 따봉 
+'''
 i = 0
 while cap.isOpened():
     if(ifExit == True):
@@ -88,16 +90,17 @@ while cap.isOpened():
         break
 cap.release()
 cv2.destroyAllWindows()
+'''
+# step 1 end
 
-###start step2
-extract_file = open('extractsamples/result.txt','w')
 
-
-cap = cv2.VideoCapture("videoplayback.mp4")
+###start step2 --> 영상 추출
+extract_file = open('DAIN/extractsamples/result.txt','w')
+cap = cv2.VideoCapture('DAIN/sample_dance/videoplayback.mp4')
 fps = cap.get(cv2.CAP_PROP_FPS)
 #control frame rate
 frame_counter = 0
-frameTime =  25#int((1/fps)*1000)  #time of each frame (ms단위, 몇ms당 1frame으로 할지 설정)
+frameTime = int((1/fps)*1000)  #time of each frame (ms단위, 몇ms당 1frame으로 할지 설정)
 extract_time_by_per_frame = 10 #몇프레임 당 한번 측정할지 조절 가능
 
 #총 몇번의 측정이 이루어졌는지 count
@@ -124,9 +127,25 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                 #Extract landmarks
                 try: #success to extract landmarks
                     landmarks = results.pose_landmarks.landmark
-                    extract_file.write(str(landmarks))
-                    extract_file.write('\n')
-                    extract_file.write('\n')
+                    #print(type(landmarks))
+
+                    # extract_file.write(
+                    #     "count : " + str(extract_count) + '\n' +
+                    #     "x : "+ str(landmarks[0].x) + '\n' +
+                    #     "y : "+ str(landmarks[0].y) + '\n' +
+                    #     "z : "+ str(landmarks[0].y) + '\n\n' 
+                    # )
+
+                    extract_file.write(
+                            str(landmarks[0].x) + ',' 
+                        + str(landmarks[0].y) + ',' 
+                        + str(landmarks[0].z) + '\n' 
+                    )
+
+
+                    #extract_file.write(str(landmarks))
+                    #extract_file.write('\n')
+                    #extract_file.write('\n')
                     extract_count += 1
                     print('extracting...')
                 except:
@@ -135,7 +154,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
         else: #no next frame (end point of video)
             break
             #Show video on screen
-        cv2.imshow('dance_file',frame)
+        #cv2.imshow('dance_file',frame)
         
         if cv2.waitKey(frameTime) & 0xFF == 27:
             break
@@ -207,10 +226,10 @@ cv2.destroyAllWindows()
 ###end step3
 
 ###start step4
-video =cv2.VideoCapture('videoplayback.mp4')
-player = MediaPlayer('/videoplayback.mp4')
+video =cv2.VideoCapture('DAIN/sample_dance/videoplayback.mp4')
+player = MediaPlayer('DAIN/sample_dance/videoplayback.mp4')
 fps = video.get(cv2.CAP_PROP_FPS)
-frameTime = 25 #int(np.round((1/fps)*1000))
+frameTime = int(np.round((1/fps)*1000))
 
 while video.isOpened():
     ret, frame = video.read()
@@ -231,16 +250,21 @@ cv2.destroyAllWindows()
 """
 # dance practice 영상 재생 & 내 영상까지 보이게 하기
 dance = cv2.VideoCapture('/sampledance/videoplayback.mp4')
+
 #windows좌표 설정해줄 필요 있음(수정필요)
 #cap = cv2.VideoCapture(0) 
+
+
 fps = dance.get(cv2.CAP_PROP_FPS)
 frameTime = int((1/fps)*1000)  #time of each frame (ms단위, 몇ms당 1frame으로 할지 설정)
+
 while dance.isOpened() and cap.isOpened():
     ret, frame = dance.read()
     r,f  = cap.read()
     #img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) # RGB 처리인데 원본 색감 그대로 할거면 안해도 될 듯
     cv2.imshow('dance practice',frame)
     cv2.imshow('dance', cv2.flip(f, 1))
+
     if cv2.waitKey(frameTime) & 0xFF == 27:
         break
 # 작업 완료 후 해제
@@ -248,4 +272,5 @@ dance.release()
 cap.release()
 cv2.destroyAllWindows()
 print("☆☆☆Done!☆☆☆")
+
 """
