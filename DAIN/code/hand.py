@@ -98,16 +98,21 @@ cv2.destroyAllWindows()
 
 
 ###start step2 --> 영상 추출
-extract_file = open('DAIN/extractsamples/result.txt','w')
-cap = cv2.VideoCapture('DAIN/sample_dance/videoplayback.mp4')
+extract_file = open('./DAIN/extractsamples/result.txt','w')
+cap = cv2.VideoCapture('./sample_dance/videoplayback.mp4') 
 fps = cap.get(cv2.CAP_PROP_FPS)
 #control frame rate
 frame_counter = 0
 frameTime = int((1/fps)*1000)  #time of each frame (ms단위, 몇ms당 1frame으로 할지 설정)
-extract_time_by_per_frame = 10 #몇프레임 당 한번 측정할지 조절 가능
+print(fps)
+extract_time_by_per_frame = 1 #몇프레임 당 한번 측정할지 조절 가능
 
 #총 몇번의 측정이 이루어졌는지 count
 extract_count = 0
+
+
+result = [] # 추출된 영상의 전체 넘파이 배열
+
 
 with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
     while cap.isOpened():
@@ -138,19 +143,31 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                     #     "y : "+ str(landmarks[0].y) + '\n' +
                     #     "z : "+ str(landmarks[0].y) + '\n\n' 
                     # )
+                    
+                    #print(len(landmarks))
+                    ret = []
+                    for i in range(len(landmarks)):
+                        
+                        temp = np.array([landmarks[i].x,landmarks[i].y,landmarks[i].z], float)
+                        ret = np.append(ret,temp,axis = 0)
+                        extract_file.write(
+                            str(landmarks[i].x) + ',' 
+                            + str(landmarks[i].y) + ',' 
+                            + str(landmarks[i].z) + '\n' 
+                        )
+                    
+                    #print(ret)
+                    result = np.append(result,ret,axis=0)
+                    extract_file.write('\n')
 
-                    extract_file.write(
-                            str(landmarks[0].x) + ',' 
-                        + str(landmarks[0].y) + ',' 
-                        + str(landmarks[0].z) + '\n' 
-                    )
 
 
-                    #extract_file.write(str(landmarks))
-                    #extract_file.write('\n')
-                    #extract_file.write('\n')
-                    extract_count += 1
-                    print('extracting...')
+
+                    # extract_file.write(str(landmarks))
+                    # extract_file.write('\n')
+                    # extract_file.write('\n')
+                    # extract_count += 1
+                    #print('extracting...')
                 except:
                     pass
         
@@ -165,6 +182,9 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
     cv2.destroyAllWindows()
     extract_file.close()
 print('*****extract success*****')
+z = result.shape[0]/(33*3)
+result = np.reshape(result,(int(z),33,3)) # frame 수,  tracking좌표 수, xyz 
+print(result[0])
 ###end step2
 
 '''
