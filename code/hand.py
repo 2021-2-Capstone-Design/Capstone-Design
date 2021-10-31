@@ -11,6 +11,7 @@ from mediapipe.python.solutions import hands
 #step3 gesture 탐지
 #step4 v 감지 -> 영상 재생
 
+
 ###gesture list
 def dist(x1,y1,x2,y2): # 비교를 위한 거리 계산 함수
     return math.sqrt( math.pow(x1-x2,2) + math.pow(y1-y2,2))
@@ -29,7 +30,7 @@ mpHands = mp.solutions.hands
 my_hands = mpHands.Hands()
 mpDraw = mp.solutions.drawing_utils
 
-
+"""
 cap = cv2.VideoCapture(0)
 ifExit = False #yeah 손동작 인식했는지
 
@@ -88,16 +89,16 @@ while cap.isOpened():
         break
 cap.release()
 cv2.destroyAllWindows()
-
+"""
 ###start step2
-extract_file = open('extractsamples/result.txt','w')
-cap = cv2.VideoCapture('sample_dance/videoplayback.mp4')
+extract_file = open('extractsamples/result_for_back.txt','w')
+cap = cv2.VideoCapture('sample_dance/person_back.mp4')
 fps = cap.get(cv2.CAP_PROP_FPS)
 #control frame rate
 frame_counter = 0
 frameTime = int((1/fps)*1000)  #time of each frame (ms단위, 몇ms당 1frame으로 할지 설정)
-extract_time_by_per_frame = 10 #몇프레임 당 한번 측정할지 조절 가능
-
+extract_time_by_per_frame = 1 #몇프레임 당 한번 측정할지 조절 가능
+print('fps : %d'%fps)
 #총 몇번의 측정이 이루어졌는지 count
 extract_count = 0
 
@@ -141,9 +142,11 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
     cv2.destroyAllWindows()
     extract_file.close()
 print('*****extract success*****')
+print('frame_count : %d'%frame_counter)
+print('extract_count : %d' %extract_count)
 ###end step2
 
-
+"""
 ###start step3
 cap = cv2.VideoCapture(0)
 ifExit = False #yeah 손동작 인식했는지
@@ -226,7 +229,7 @@ video.release()
 cv2.destroyAllWindows()
 
 ###end step4
-"""
+
 # dance practice 영상 재생 & 내 영상까지 보이게 하기
 dance = cv2.VideoCapture('/sampledance/videoplayback.mp4')
 
