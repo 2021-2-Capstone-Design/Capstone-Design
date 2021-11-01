@@ -3,7 +3,7 @@ import time
 
 def run_video():
     media_player = vlc.MediaPlayer()
-    media_file = 'sample_dance/videoplayback.mp4'
+    media_file = './../sample_dance/videoplayback.mp4'
     media = vlc.Media(media_file)
     media_player.set_media(media)
 

@@ -185,6 +185,7 @@ print('*****extract success*****')
 z = result.shape[0]/(33*3)
 result = np.reshape(result,(int(z),33,3)) # frame 수,  tracking좌표 수, xyz 
 print(result[0])
+print(result.shape)
 ###end step2
 
 '''
