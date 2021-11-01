@@ -8,10 +8,10 @@ def take_screenshot():
     media_player.set_media(media)
     media_player.set_rate(10)
     
-    capture_count=10
+    capture_count=8
     i=0
     media_player.play()
-    time.sleep(1)
+    time.sleep(0.1)
     while(i<capture_count):
         time.sleep(0.1)
         media_player.video_take_snapshot(0,'./../screenshot',0,0)
