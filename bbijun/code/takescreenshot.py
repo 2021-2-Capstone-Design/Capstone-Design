@@ -1,7 +1,13 @@
 import vlc
 import time
+import cv2
+
 #1프레임마다 스크린샷 촬영으로 코드 변경
 def take_screenshot():
+    cap = cv2.VideoCapture('./../../sample_dance/solo.mp4')
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    frameTime = int((1/fps)*1000)
+
     media_player = vlc.MediaPlayer()
     media_file = './../../sample_dance/solo.mp4'
     media = vlc.Media(media_file)
@@ -11,9 +17,12 @@ def take_screenshot():
     print("video runtime : "+str(video_runtime))
     i=0
     media_player.play()
+    time.sleep(0.1)
+    video_runtime = media_player.get_length()
+    print("video runtime : "+str(video_runtime))
     while(i<video_runtime):
-        time.sleep(0.001)
+        time.sleep(frameTime)
         media_player.video_take_snapshot(0,'./../screenshot',0,0)
-        i+=1
+        i+=frameTime
 
 take_screenshot()
