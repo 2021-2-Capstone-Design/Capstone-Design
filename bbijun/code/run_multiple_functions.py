@@ -4,7 +4,7 @@ import cv2
 import vlc
 
 
-video_path = './bbijun/sample_dance/videoplayback.mp4'
+video_path = './../sample_dance/videoplayback.mp4'
 thread_flag = 0
 
 def run_video():
@@ -15,10 +15,10 @@ def run_video():
     media = vlc.Media(media_file)
     media_player.set_media(media)
     media_player.video_set_scale(1)
-    time.sleep(1)
-    video_runtime = media_player.get_length()
     media_player.audio_set_volume(50)
     media_player.play()
+    time.sleep(1)
+    video_runtime = media_player.get_length()
     time.sleep(video_runtime/1000)
     media_player.stop()
     thread_flag = 1
@@ -39,7 +39,7 @@ def webcam_capture():
             break
     
     webcam.release()
-    cv2.destryAllWindows()
+    cv2.destroyAllWindows()
     return 0
 
 threading.Thread(target=run_video).start()
