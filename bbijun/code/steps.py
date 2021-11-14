@@ -44,9 +44,9 @@ def run_video():
     time.sleep(1)
     video_runtime = media_player.get_length()
     media_player.audio_set_volume(50)
-    while True:
-        if video_start_flag == 1:
-            break
+    #while True:
+    #    if video_start_flag == 1:
+    #        break
     media_player.play()
     time.sleep(video_runtime/1000)
     media_player.stop()
