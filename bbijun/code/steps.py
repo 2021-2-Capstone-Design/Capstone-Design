@@ -29,7 +29,7 @@ mpDraw = mp.solutions.drawing_utils
 
 record_flag = 1
 video_start_flag = 0
-saving_video_path = './bbijun/extractsamples/testvideo2.avi'
+saving_video_path = './bbijun/extractsamples/testvideo2.mp4'
 video_path = './bbijun/sample_dance/videoplayback.mp4'
 
 
@@ -179,7 +179,7 @@ def gesture_savevideo():
             if(record_flag == 1):
                 print("recording...")
                 fcc = cv2.VideoWriter_fourcc(*'DIVX')
-                out = cv2.VideoWriter(saving_video_path,fcc,5,(width,height),True)
+                out = cv2.VideoWriter(saving_video_path,fcc,20,(width,height),True)
                 out.write(img)
             else:
                 print("record stop")
