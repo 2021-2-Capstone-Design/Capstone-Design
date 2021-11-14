@@ -41,13 +41,13 @@ def run_video():
     media = vlc.Media(media_file)
     media_player.set_media(media)
     media_player.video_set_scale(1)
+    media_player.audio_set_volume(50)
+    while True:
+        if video_start_flag == 1:
+            break
+    media_player.play()
     time.sleep(1)
     video_runtime = media_player.get_length()
-    media_player.audio_set_volume(50)
-    #while True:
-    #    if video_start_flag == 1:
-    #        break
-    media_player.play()
     time.sleep(video_runtime/1000)
     media_player.stop()
     record_flag = 0
@@ -185,13 +185,13 @@ def gesture_savevideo():
                 print("record stop")
                 out.release()
                 cv2.destroyAllWindows()
-
-
+                break
 
         cv2.imshow('MediaPipe Hands', cv2.flip(img, 1)) # 셀프 카메라이므로 좌우반전 돼서 나오게
         if cv2.waitKey(5) & 0xFF == 27:
             break
 
+"""
 t1 = threading.Thread(target = gesture_savevideo)
 t2 = threading.Thread(target = run_video)
 t1.daemon = True
@@ -199,9 +199,9 @@ t2.daemon = True
 t1.start()
 if video_start_flag==1:
     t2.start()
-
 """
+
 threading.Thread(target = gesture_savevideo).start()
 threading.Thread(target = run_video).start()
-"""
+
 
