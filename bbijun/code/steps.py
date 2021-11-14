@@ -7,6 +7,7 @@ from ffpyplayer.player import MediaPlayer
 from mediapipe.python.solutions import hands
 import time
 import vlc
+import threading
 
 ###gesture list
 def dist(x1,y1,x2,y2): # 비교를 위한 거리 계산 함수
@@ -26,12 +27,15 @@ mpHands = mp.solutions.hands
 my_hands = mpHands.Hands()
 mpDraw = mp.solutions.drawing_utils
 
-thread_flag = 1
+record_flag = 1
+video_start_flag = 0
 saving_video_path = './bbijun/extractsamples/testvideo2.mp4'
+video_path = './bbijun/sample_dance/videoplayback.mp4'
+
 
 def run_video():
-    global thread_flag
-    thread_flag = 0
+    global record_flag
+    global video_start_flag
     media_player = vlc.MediaPlayer()
     media_file = video_path
     media = vlc.Media(media_file)
@@ -40,13 +44,14 @@ def run_video():
     time.sleep(1)
     video_runtime = media_player.get_length()
     media_player.audio_set_volume(50)
+    while True:
+        if video_start_flag == 1:
+            break
     media_player.play()
     time.sleep(video_runtime/1000)
     media_player.stop()
-    thread_flag = 1
+    record_flag = 0
     return 0
-
-
 
 """
 # step0 --> 영상 추출
@@ -112,12 +117,10 @@ z = result.shape[0]/(33*3)
 result = np.reshape(result,(int(z),33,3)) # frame 수,  tracking좌표 수, xyz 
 print(result[0])
 print(result.shape)
-
-
-
 """
 # 그 다음 steps
 def gesture_savevideo():
+    global video_start_flag
     cap = cv2.VideoCapture(0) # camera
     ifExit = False #yeah 손동작 인식했는지 필요없음
     cap.set(3,1920)
@@ -163,6 +166,7 @@ def gesture_savevideo():
                             if(gesture[i][5]=="Good"): 
                                 ifExit = True
                                 step = 2
+                                video_start_flag = 1
 
                     mpDraw.draw_landmarks(img,handLandmark,mpHands.HAND_CONNECTIONS)
                     # flag = True
@@ -172,17 +176,29 @@ def gesture_savevideo():
                     # if(flag == True): ifExit = True
                     
         elif (step == 2):
-            if(thread_flag == 1):
+            if(record_flag == 1):
                 print("recording...")
                 fcc = cv2.VideoWriter_fourcc(*'FMP4')
                 out = cv2.VideoWriter(saving_video_path,fcc,5,(width,height),True)
                 out.write(img)
+            else:
+                print("record stop")
+                out.release()
+                cv2.destroyAllWindows()
+
+
 
         cv2.imshow('MediaPipe Hands', cv2.flip(img, 1)) # 셀프 카메라이므로 좌우반전 돼서 나오게
         if cv2.waitKey(5) & 0xFF == 27:
             break
-
-gesture_savevideo()
-
-
+"""
+t1 = threading.Thread(target = gesture_savevideo)
+t2 = threading.Thread(target = run_video)
+t1.daemon = True
+t2.daemon = True
+t1.start()
+t2.start()
+"""
+threading.Thread(target = gesture_savevideo).start()
+threading.Thread(target = run_video).start()
 
