@@ -26,7 +26,7 @@ mpHands = mp.solutions.hands
 my_hands = mpHands.Hands()
 mpDraw = mp.solutions.drawing_utils
 
-thread_flag = 0
+thread_flag = 1
 saving_video_path = './bbijun/extractsamples/testvideo2.mp4'
 
 def run_video():
@@ -120,7 +120,10 @@ print(result.shape)
 def gesture_savevideo():
     cap = cv2.VideoCapture(0) # camera
     ifExit = False #yeah 손동작 인식했는지 필요없음
-
+    cap.set(3,1920)
+    cap.set(4,1080)
+    width = int(cap.get(3))
+    height = int(cap.get(4))
     step = 1
     while cap.isOpened():
         success,img = cap.read() # read videocapture
@@ -172,7 +175,7 @@ def gesture_savevideo():
             if(thread_flag == 1):
                 print("recording...")
                 fcc = cv2.VideoWriter_fourcc(*'FMP4')
-                out = cv2.VideoWriter(saving_video_path,fcc,5,True)
+                out = cv2.VideoWriter(saving_video_path,fcc,5,(width,height),True)
                 out.write(img)
 
         cv2.imshow('MediaPipe Hands', cv2.flip(img, 1)) # 셀프 카메라이므로 좌우반전 돼서 나오게
