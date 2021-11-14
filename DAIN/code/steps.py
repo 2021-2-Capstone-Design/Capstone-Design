@@ -148,7 +148,7 @@ while cap.isOpened():
                 #         flag = False # 하나라도 틀리면 False
                 # if(flag == True): ifExit = True
                 
-    elif (step == 2):
+    elif (step == 2): # 실제로 추는 단계?
         print("step 2")    
         #break 
 
