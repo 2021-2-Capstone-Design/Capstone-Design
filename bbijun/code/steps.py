@@ -191,14 +191,17 @@ def gesture_savevideo():
         cv2.imshow('MediaPipe Hands', cv2.flip(img, 1)) # 셀프 카메라이므로 좌우반전 돼서 나오게
         if cv2.waitKey(5) & 0xFF == 27:
             break
-"""
+
 t1 = threading.Thread(target = gesture_savevideo)
 t2 = threading.Thread(target = run_video)
 t1.daemon = True
 t2.daemon = True
 t1.start()
-t2.start()
+if video_start_flag==1:
+    t2.start()
+
 """
 threading.Thread(target = gesture_savevideo).start()
 threading.Thread(target = run_video).start()
+"""
 
