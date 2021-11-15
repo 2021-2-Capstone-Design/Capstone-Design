@@ -8,6 +8,7 @@ result = []
 for line in file:
     temp_line = line
     ret = np.array([])
+    # count값은 관절좌표를 쭉 훑으면서 첫 x좌표를 얻기 위해 설정
     count = 0
 
     parse_line = temp_line.split(' ')
@@ -19,10 +20,12 @@ for line in file:
         while True:
             for full_joint in range(len(parse_line)):
                 if(full_joint / 3 == count):
+                    # 처음 count와 일치하는 곳부터 +2 인덱스까지가 x, y, z좌표 값임
                     temp_joint = np.array([parse_line[full_joint], parse_line[full_joint+1], parse_line[full_joint+2]], float)
                     ret = np.append(ret, temp_joint, axis = 0)
                     break
             count += 1
+            # count == 33이면 모든 관절을 훑어본 것. 좌표 3개당 count 1씩 증가하므로 (한 줄에 총 99개 좌표)
             if(count == 33):
                 break
 
