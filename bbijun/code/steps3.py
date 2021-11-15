@@ -8,6 +8,8 @@ from mediapipe.python.solutions import hands
 import time
 import vlc
 import threading
+import imutils
+import tkinter as tk
 
 ###gesture list
 def dist(x1,y1,x2,y2): # 비교를 위한 거리 계산 함수
@@ -26,7 +28,10 @@ mp_pose = mp.solutions.pose
 mpHands = mp.solutions.hands
 my_hands = mpHands.Hands()
 mpDraw = mp.solutions.drawing_utils
-
+root = tk.Tk()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+root.destroy()
 ###flag, 경로 등 변수들 변경
 record_flag = 1
 video_start_flag = 0
