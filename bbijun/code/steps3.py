@@ -35,8 +35,8 @@ root.destroy()
 ###flag, 경로 등 변수들 변경
 record_flag = 1
 video_start_flag = 0
-saving_video_path = './bbijun/extractsamples/testvideo2.mp4'
-video_path = './bbijun/sample_dance/videoplayback.mp4'
+saving_video_path = './../extractsamples/testvideo2.mp4'
+video_path = './../sample_dance/videoplayback.mp4'
 ###
 
 def run_video():
@@ -188,7 +188,7 @@ def estimate_video():
 
 threading.Thread(target = gesture_savevideo).start()
 threading.Thread(target = run_video).start()
-estimate_video()
+# estimate_video()
 
 
 
