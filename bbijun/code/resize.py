@@ -14,7 +14,7 @@ while cap.isOpened():
     img = imutils.resize(img, width=screen_width//2)
     cv2.imshow('webcam',cv2.flip(img,1))
     cv2.moveWindow('webcam',screen_width//2,0)
-    if cv2.waitKey(1) & 0xFF == 27:
+    if cv2.waitKey(50) & 0xFF == 27:
         break
 cap.release()
 cv2.destroyAllWindows()

@@ -35,8 +35,8 @@ root.destroy()
 ###flag, 경로 등 변수들 변경
 record_flag = 1
 video_start_flag = 0
-saving_video_path = './../extractsamples/testvideo2.mp4'
-video_path = './../sample_dance/videoplayback.mp4'
+saving_video_path = './bbijun/extractsamples/testvideo2.mp4'
+video_path = './bbijun/sample_dance/videoplayback.mp4'
 ###
 
 def run_video():
@@ -128,11 +128,14 @@ def gesture_savevideo():
                 out.release()
                 cv2.destroyAllWindows()
                 break
-
+        img = imutils.resize(img, width = screen_width//2)
         cv2.imshow('MediaPipe Hands', cv2.flip(img, 1)) # 셀프 카메라이므로 좌우반전 돼서 나오게
         cv2.moveWindow('MediaPipe Hands',screen_width//2,0)
         if cv2.waitKey(5) & 0xFF == 27:
             break
+
+
+
 
 def estimate_video():
     cap = cv2.VideoCapture(saving_video_path)
@@ -169,7 +172,7 @@ def estimate_video():
                             
                             temp = np.array([landmarks[i].x,landmarks[i].y,landmarks[i].z], float)
                             ret = np.append(ret,temp,axis = 0)
-
+                        
                         #print(ret)
                         result = np.append(result,ret,axis=0)
                     except:
@@ -188,7 +191,7 @@ def estimate_video():
 
 threading.Thread(target = gesture_savevideo).start()
 threading.Thread(target = run_video).start()
-# estimate_video()
+estimate_video()
 
 
 
