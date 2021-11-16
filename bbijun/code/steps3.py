@@ -169,7 +169,7 @@ def estimate_video():
                             
                             temp = np.array([landmarks[i].x,landmarks[i].y,landmarks[i].z], float)
                             ret = np.append(ret,temp,axis = 0)
-                        
+
                         #print(ret)
                         result = np.append(result,ret,axis=0)
                     except:
