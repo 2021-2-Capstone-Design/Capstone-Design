@@ -4,7 +4,8 @@ import time
 def stop_and_go():
     media_player = vlc.MediaPlayer()
     media_file = './../../sample_dance/videoplayback.mp4'
-    media = vlc.Media(media_player)
+    media = vlc.Media(media_file)
+    media_player.set_media(media)
     media_player.play()
     time.sleep(0.1)
     video_runtime = media_player.get_length()
