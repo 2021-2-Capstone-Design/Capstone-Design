@@ -11,8 +11,8 @@ else:
     print("Please insert 'python load_and_calculate_vector.py [coordinates_video_file] [coordinates_webcam_file]'")
     sys.exit()
 
-coordinates_video_path = './../coordinates/' + coordinates_video
-coordinates_user_path = './../coordinates/' + coordinates_user
+coordinates_video_path = './../coordinates/' + coordinates_video + '.txt'
+coordinates_user_path = './../coordinates/' + coordinates_user + '.txt'
 
 file_v = open(coordinates_video_path, mode='rt', encoding='utf-8')
 file_u = open(coordinates_user_path, mode='rt', encoding='utf-8')
@@ -62,11 +62,11 @@ for line in file_v:
     #     else:
     #         break
 
-    result_v = np.append(result, ret, axis=0)
+    result_v = np.append(result_v, ret, axis=0)
 
 
 # coordinates_user to numpy 'result_u'
-for line in file_v:
+for line in file_u:
     temp_line = line
     ret = np.array([])
     # count값은 관절좌표를 쭉 훑으면서 첫 x좌표를 얻기 위해 설정
@@ -107,7 +107,7 @@ for line in file_v:
     #     else:
     #         break
 
-    result_u = np.append(result, ret, axis=0)
+    result_u = np.append(result_u, ret, axis=0)
 
 # 1차원 배열로 모든 관절 좌표 쭉! (99개씩 4프레임 예시로 텍스트 저장해둠)
 print("\n*** Check result ***")
@@ -128,8 +128,8 @@ print(num_frame_u)
 print("\n")
 
 # frame 수,  tracking좌표 수, xyz
-result_v = np.reshape(result_v,(int(num_frame),33,3))
-result_u = np.reshape(result_u,(int(num_frame),33,3))
+result_v = np.reshape(result_v,(int(num_frame_v),33,3))
+result_u = np.reshape(result_u,(int(num_frame_u),33,3))
 
 # 프레임별로 numpy 배열 출력해보기
 print("*** Check frame by frame ***")

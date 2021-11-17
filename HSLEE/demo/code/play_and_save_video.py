@@ -41,8 +41,8 @@ root.destroy()
 record_flag = 1
 video_start_flag = 0
 estimate_start_flag = 0
-saving_video_path = './../../save_user_video/user_webcam.mp4'
-video_path = './../../dance/sample.mp4'
+saving_video_path = './../save_user_video/user_webcam.mp4'
+video_path = './../dance/sample.mp4'
 
 # Run sample.mp4 video using vlc
 def run_video():

@@ -202,7 +202,7 @@ def estimate_video():
                 # Show video on screen
             # cv2.imshow('dance_file',frame) #측정중일땐 굳이 영상 보여줄 필요 없을듯 주석 제거하면 영상 보여줌
 
-            if cv2.waitKey(frameTime) & 0xFF == 27:
+            if cv2.waitKey(1) & 0xFF == 27:
                 break
 
         txt.close()
