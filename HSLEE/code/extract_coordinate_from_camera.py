@@ -38,8 +38,8 @@ root.destroy()
 record_flag = 1
 video_start_flag = 0
 estimate_start_flag = 0
-saving_video_path = './../extractsamples/testvideo2.mp4'
-video_path = './../sample_dance/videoplayback.mp4'
+saving_video_path = './../extractsamples/personback_player.mp4'
+video_path = './../sample_dance/person_back.mp4'
 
 ###
 
@@ -69,16 +69,19 @@ def run_video():
 def gesture_savevideo():
     global video_start_flag
     global estimate_start_flag
+    global video_path
     cap = cv2.VideoCapture(0)  # camera
+    cap2 = cv2.VideoCapture(video_path)
     ifExit = False  # yeah 손동작 인식했는지 필요없음
-    cap.set(3, 1920)
-    cap.set(4, 1080)
+    cap.set(3, 1280)
+    cap.set(4, 960)
     width = int(cap.get(3))
     height = int(cap.get(4))
     step = 1
-    fps = 25
+    fps = cap2.get(cv2.CAP_PROP_FPS)
     fcc = cv2.VideoWriter_fourcc(*'FMP4')
     out = cv2.VideoWriter(saving_video_path, fcc, fps, (width, height), True)
+    delay = int(1000 / fps);
 
     while cap.isOpened():
         success, img = cap.read()  # read videocapture
@@ -142,7 +145,7 @@ def gesture_savevideo():
 
         cv2.imshow('MediaPipe Hands', cv2.flip(img, 1))  # 셀프 카메라이므로 좌우반전 돼서 나오게
         cv2.moveWindow('MediaPipe Hands', screen_width // 2, 0)
-        if cv2.waitKey(5) & 0xFF == 27:
+        if cv2.waitKey(delay) & 0xFF == 27:
             break
 
 
@@ -154,7 +157,7 @@ def estimate_video():
     extract_time_by_per_frame = 1
     frame_counter = 0
 
-    txt = open('./../file_to_extract/videoplayback_player.txt', 'w')
+    txt = open('./../file_to_extract/personback_player.txt', 'w')
 
     with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
         while cap.isOpened():
