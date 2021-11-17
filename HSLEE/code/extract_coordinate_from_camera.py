@@ -81,7 +81,7 @@ def gesture_savevideo():
     fps = cap2.get(cv2.CAP_PROP_FPS)
     fcc = cv2.VideoWriter_fourcc(*'FMP4')
     out = cv2.VideoWriter(saving_video_path, fcc, fps, (width, height), True)
-    delay = int(1000 / fps);
+    delay = int(1000 / fps)
 
     while cap.isOpened():
         success, img = cap.read()  # read videocapture
@@ -218,7 +218,3 @@ while True:
     if(estimate_start_flag == 1):
         estimate_video()
         break
-
-
-
-
