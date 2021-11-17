@@ -67,11 +67,14 @@ def gesture_savevideo():
     ifExit = False #yeah 손동작 인식했는지 필요없음
     cap.set(3,1920)
     cap.set(4,1080)
+    #cap.set(3,1280)
+    #cap.set(4,960)
     width = int(cap.get(3))
     height = int(cap.get(4))
     step = 1
     fcc = cv2.VideoWriter_fourcc(*'FMP4')
     out = cv2.VideoWriter(saving_video_path,fcc,20,(width,height),True)
+    #out = cv2.VideoWriter(saving_video_path,fcc,30,(width,height),True)
     while cap.isOpened():
         success,img = cap.read() # read videocapture
         #h,w,c = img.shape # x, y, z 
