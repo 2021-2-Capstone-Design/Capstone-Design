@@ -220,8 +220,8 @@ def save_video():
 
         cv2.imshow('webcam', cv2.flip(frame, 1))
         cv2.setWindowProperty('webcam', cv2.WND_PROP_TOPMOST, 1)
-        cv2.resizeWindow("webcam", 320, 180)
-        cv2.moveWindow('webcam', screen_width - 320, screen_height - 180)
+        cv2.resizeWindow('webcam', 320, 180)
+        cv2.moveWindow('webcam', screen_width - 330, screen_height - 210)
         if cv2.waitKey(1) & 0xFF == 27:
             break
 
