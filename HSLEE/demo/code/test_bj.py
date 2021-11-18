@@ -44,7 +44,7 @@ video_start_flag = 1
 estimate_start_flag = 0
 saving_video_path = './../save_user_video/user_webcam.mp4'
 video_path = './../dance/solo.mp4'
-cap2 = cv2.VideoCapture(saving_video_path)
+cap2 = cv2.VideoCapture(video_path)
 fps = cap2.get(cv2.CAP_PROP_FPS)
 
 # Run sample.mp4 video using vlc
@@ -61,12 +61,13 @@ def run_video():
     media_player.set_media(media)
     media_player.video_set_scale(1)
     media_player.audio_set_volume(100)
+    media_player.set_fullscreen(True)
 
     # 따봉 인식하면 vlc로 영상 시작되게끔
     while True:
         if video_start_flag == 1:
             record_flag = 1
-            time.sleep(5)
+            time.sleep(7)
             break
 
     # vlc start
@@ -195,6 +196,7 @@ def gesture_savevideo():
     cv2.destroyAllWindows()
 """
 def save_video():
+
     recap = cv2.VideoCapture(0)
     recap.set(3, 640)
     recap.set(4, 360)
@@ -202,6 +204,7 @@ def save_video():
     height = int(recap.get(4))
     fcc = cv2.VideoWriter_fourcc(*'FMP4')
     out = cv2.VideoWriter(saving_video_path, fcc, fps, (width, height), True)
+
     while recap.isOpened():
         ret, frame = recap.read()
         if (record_flag == 1):
@@ -216,7 +219,9 @@ def save_video():
             break
 
         cv2.imshow('webcam', cv2.flip(frame, 1))
-        cv2.moveWindow('webcam', screen_width // 2, 0)
+        cv2.setWindowProperty('webcam', cv2.WND_PROP_TOPMOST, 1)
+        cv2.resizeWindow("webcam", 320, 180)
+        cv2.moveWindow('webcam', screen_width - 320, screen_height - 180)
         if cv2.waitKey(1) & 0xFF == 27:
             break
 
