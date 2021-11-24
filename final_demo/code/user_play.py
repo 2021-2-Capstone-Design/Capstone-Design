@@ -42,7 +42,7 @@ video_start_flag = 0
 dance_name = sys.argv[1]
 record_video_path = './../record_videos/' + dance_name + '_record.mp4' 
 video_path = './../videos/' + dance_name + '.mp4'
-show_webcam_flag = 1 #웹캠 보여주는 flag
+show_webcam_flag = int(sys.argv[2]) #웹캠 보여주는 flag
 user_coordinate = './../record_coordinate/' + dance_name + '.txt'
 ##functions
 def run_video():
