@@ -4,11 +4,15 @@ import mediapipe as mp
 import math
 import numpy as np
 from time import sleep
+from ffpyplayer.player import MediaPlayer
 from mediapipe.python.solutions import hands
 import time
 import vlc
 import threading
 import tkinter as tk
+
+from django.shortcuts import render
+
 
 root = tk.Tk()
 screen_width = root.winfo_screenwidth()
@@ -16,11 +20,11 @@ screen_height = root.winfo_screenheight()
 root.destroy()
 record_flag = 1
 video_start_flag = 0
-dance_name = sys.argv[1]
-record_video_path = './../record_videos/' + dance_name + '_record.mp4' 
-video_path = './../videos/' + dance_name + '.mp4'
-show_webcam_flag = int(sys.argv[2]) #웹캠 보여주는 flag
-user_coordinate = './../record_coordinate/' + dance_name + '.txt'
+dance_name = 'person_back' #sys.argv[1]
+record_video_path = 'capstone/record_videos/' + dance_name + '_record.mp4' 
+video_path = 'capstone/videos/' + dance_name + '.mp4'
+show_webcam_flag = 1 # int(sys.argv[2]) #웹캠 보여주는 flag
+user_coordinate = 'capstone/record_coordinate/' + dance_name + '.txt'
 
 def run_video():
     global record_flag
@@ -31,7 +35,7 @@ def run_video():
     media_player.set_media(media)
     media_player.video_set_scale(1)
     media_player.audio_set_volume(100)
-    time.sleep(3)
+    time.sleep(9)
     media_player.play()
     time.sleep(1)
     video_runtime = media_player.get_length()
@@ -48,7 +52,7 @@ def record_video_with_webcam_window():
     webcam.set(4,360)
     width = int(webcam.get(3))
     height = int(webcam.get(4))
-    fcc = cv2.VideoWriter_fourcc(*'FMP4')
+    fcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(record_video_path, fcc, fps, (width, height), True)
     while webcam.isOpened():
         if record_flag == 1:
@@ -91,3 +95,14 @@ def record_video_without_webcam_window():
         if cv2.waitKey(1) & 0xFF == 27:
             cv2.destroyAllWindows()
             break
+
+def testmain(request):
+    if show_webcam_flag == 1:
+        print(1)
+        threading.Thread(target = record_video_with_webcam_window).start()
+        threading.Thread(target = run_video).start()
+    else:
+        threading.Thread(target = record_video_without_webcam_window).start()
+        threading.Thread(target = run_video).start()
+
+    return render(request, 'capstone/practice.html')

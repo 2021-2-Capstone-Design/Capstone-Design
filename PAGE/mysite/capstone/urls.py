@@ -1,6 +1,9 @@
 from django.urls import path
 from . import views
 from . import test1
+from . import test2
+
+
 from django.contrib.auth import views as auth_views
 
 app_name = 'capstone'
@@ -13,9 +16,9 @@ urlpatterns = [
     path('practice/', views.practice, name='practice'),
     path('record/', views.record, name='record'),
 
-
-    path('mypage/', test1.testmain, name='mypage'),
-    path('waiting/', views.waiting, name='waiting'),
+    path('mypage/', test2.testmain, name='mypage'),
+    #path('mypage/', test1.testmain, name='mypage'),
+    #path('waiting/', views.waiting, name='waiting'),
     #path('mypage/', views.mypage, name='mypage'),
 
     path('login/',auth_views.LoginView.as_view(template_name='capstone/login.html'), name='login'),
