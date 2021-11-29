@@ -11,9 +11,9 @@ else:
     print("Please insert 'python load_and_calculate_vector.py [dance name]'")
     sys.exit()
 
-coordinates_video_path = 'original_coordinate/' + dance_name + '.txt'
-coordinates_user_path = 'user_coordinate/' + dance_name + '_record.txt'
-result_path = 'results/result_' + dance_name + '.txt'
+coordinates_video_path = './original_coordinate/' + dance_name + '.txt'
+coordinates_user_path = './user_coordinate/' + dance_name + '_record.txt'
+result_path = './results/result_' + dance_name + '.txt'
 
 path = 'videos/' + dance_name + '.mp4'
 cap = cv2.VideoCapture(path)
@@ -271,7 +271,7 @@ def calculate():
                 timestamp_max_time_sec = (int)(timestamp_max_frame_num / fps)
                 timestamp_max_time_msec = (float)((timestamp_max_frame_num % fps) / fps)
                 timestamp_max_time = (float)(timestamp_max_time_sec) + timestamp_max_time_msec
-                timestamp_max_time_ceil = math.ceil(timestamp_max_time * 2)
+                timestamp_max_time_ceil = math.floor(timestamp_max_time * 2)
 
                 # 관절 좌표 어느부분(2부위)이 많이 틀렸는지 체크해서 알려주기
                 joint_counter_sort = np.sort(joint_counter)[::-1]
