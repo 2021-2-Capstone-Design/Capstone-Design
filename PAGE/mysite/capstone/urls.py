@@ -15,6 +15,7 @@ urlpatterns = [
 
 
     path('mypage/', test1.testmain, name='mypage'),
+    path('waiting/', views.waiting, name='waiting'),
     #path('mypage/', views.mypage, name='mypage'),
 
     path('login/',auth_views.LoginView.as_view(template_name='capstone/login.html'), name='login'),

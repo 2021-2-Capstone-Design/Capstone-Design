@@ -42,6 +42,9 @@ def mypage(request):
     return render(request, 'capstone/mypage.html')
 
 
+def waiting(request):
+    return render(request, 'capstone/waiting.html')
+
 # if __name__ = "__main__":
 #     print('main')
 
