@@ -13,7 +13,7 @@ import tkinter as tk
 
 from django.shortcuts import render
 
-
+vlc_play_flag = False
 root = tk.Tk()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -35,7 +35,10 @@ def run_video():
     media_player.set_media(media)
     media_player.video_set_scale(1)
     media_player.audio_set_volume(100)
-    time.sleep(9)
+    media_player.set_fullscreen(True)
+    while True:
+        if vlc_play_flag == True:
+            break
     media_player.play()
     time.sleep(1)
     video_runtime = media_player.get_length()
@@ -45,6 +48,7 @@ def run_video():
     return
 
 def record_video_with_webcam_window():
+    global vlc_play_flag
     video = cv2.VideoCapture(video_path)
     fps = video.get(cv2.CAP_PROP_FPS)
     webcam = cv2.VideoCapture(0)
@@ -55,6 +59,7 @@ def record_video_with_webcam_window():
     fcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(record_video_path, fcc, fps, (width, height), True)
     while webcam.isOpened():
+        vlc_play_flag = True
         if record_flag == 1:
             success, img = webcam.read()
             #imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -66,7 +71,9 @@ def record_video_with_webcam_window():
             break
         cv2.putText(img, 'recording',(10,10),cv2.FONT_HERSHEY_SIMPLEX,0.5,(255,0,0),2,cv2.LINE_AA) #recording 표시
         cv2.imshow('Webcam', img)
-        cv2.moveWindow('Webcam', screen_width-width, screen_height-height+20)
+        cv2.setWindowProperty('Webcam', cv2.WND_PROP_TOPMOST, 1)
+        cv2.resizeWindow("Webcam", 320, 180)
+        cv2.moveWindow('Webcam', screen_width - 320, screen_height - 180)
         if cv2.waitKey(1) & 0xFF == 27:
             out.release()
             cv2.destroyAllWindows()
@@ -95,6 +102,7 @@ def record_video_without_webcam_window():
         if cv2.waitKey(1) & 0xFF == 27:
             cv2.destroyAllWindows()
             break
+
 
 def testmain(request):
     if show_webcam_flag == 1:
