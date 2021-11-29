@@ -1,0 +1,7 @@
+Data/
+*.pyc
+*.mp4
+
+
+*.pyc
+mysite/capstone/__pycache__/
