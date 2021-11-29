@@ -231,6 +231,7 @@ estimate_saved_webcam()
 """
 
 def testmain(request):
+    render(request, 'capstone/waiting.html')
     wait_gesture()
 
 
@@ -238,6 +239,6 @@ def testmain(request):
     # threading.Thread(target=gesture_savevideo).start()
     #threading.Thread(target=run_video).start()
 
-    return render(request, 'capstone/mypage.html')
+    return render(request, 'capstone/practice.html')
 
     #return Htt
