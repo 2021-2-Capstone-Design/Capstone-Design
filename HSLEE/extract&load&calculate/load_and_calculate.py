@@ -1,5 +1,6 @@
 import sys
 import math
+import cv2
 import numpy as np
 
 arguments = sys.argv
@@ -10,9 +11,15 @@ else:
     print("Please insert 'python load_and_calculate_vector.py [dance name]'")
     sys.exit()
 
-coordinates_video_path = 'capstone/original_coordinate/' + dance_name + '.txt'
-coordinates_user_path = 'capstone/user_coordinate/' + dance_name + '.txt'
-result_path = 'capstone/results/result_' + dance_name + '.txt'
+coordinates_video_path = 'original_coordinate/' + dance_name + '.txt'
+coordinates_user_path = 'user_coordinate/' + dance_name + '_record.txt'
+result_path = 'results/result_' + dance_name + '.txt'
+
+path = 'videos/' + dance_name + '.mp4'
+cap = cv2.VideoCapture(path)
+fps = cap.get(cv2.CAP_PROP_FPS)
+
+cap.release()
 
 result_video = []
 result_user = []
@@ -33,7 +40,7 @@ def load():
 
         parse_line = temp_line.split(' ')
 
-        if(len(parse_line) != 99):
+        if(len(parse_line) < 36):
             # 관절 누락이 있다는 뜻
             print("There are missing joint coordinates")
         else:
@@ -78,7 +85,7 @@ def load():
 
         parse_line = temp_line.split(' ')
 
-        if(len(parse_line) != 99):
+        if(len(parse_line) < 36):
             # 관절 누락이 있다는 뜻
             print("There are missing joint coordinates")
         else:
@@ -123,8 +130,8 @@ def load():
     print("\n")
 
     # 프레임 수 계산
-    num_frame_video = result_video.shape[0]/(33*3)
-    num_frame_user = result_user.shape[0]/(33*3)
+    num_frame_video = result_video.shape[0]/(12*3)
+    num_frame_user = result_user.shape[0]/(12*3)
     print("*** Check result ***")
     print("video")
     print(num_frame_video)
@@ -133,8 +140,8 @@ def load():
     print("\n")
 
     # frame 수,  tracking좌표 수, xyz
-    result_video = np.reshape(result_video,(int(num_frame_video),33,3))
-    result_user = np.reshape(result_user,(int(num_frame_user),33,3))
+    result_video = np.reshape(result_video,(int(num_frame_video),12,3))
+    result_user = np.reshape(result_user,(int(num_frame_user),12,3))
 
     # 프레임별로 numpy 배열 출력해보기
     print("*** Check frame by frame ***")
@@ -160,6 +167,8 @@ def load():
 
 
 def calculate():
+    global result_path
+
     body_index = [
         [0, 2, 4],  # left arm
         [1, 3, 4],  # right arm
@@ -174,9 +183,12 @@ def calculate():
 
     # 프레임 수가 무조건 유저영상 > 안무영상 이므로 length는 안무영상 프레임수로
     length = len(result_video)
+    length_user = len(result_user)
     print(length)
 
     # 뒤에서부터 비교하기
+    a = length
+    b = length_user
 
     # 영상 짧아도 무조건 b가 유저 영상
     # 대신 짧은 값(안무 영상 프레임 수)을 length로 가지고 있으니 그걸 가지고 하면 될 듯함
@@ -197,9 +209,9 @@ def calculate():
         joint_index = 0
 
         for index in body_index:
-            l1 = result[n + (a - b)][index[0]]
-            l2 = result[n + (a - b)][index[1]]
-            l3 = result[n + (a - b)][index[2]]
+            l1 = result_video[n + (a - b)][index[0]]
+            l2 = result_video[n + (a - b)][index[1]]
+            l3 = result_video[n + (a - b)][index[2]]
 
             ll1 = l1 - l2
             ll2 = l3 - l2
@@ -209,9 +221,9 @@ def calculate():
             angleREAL = np.arccos(innerREAL / REAL) / np.pi * 180
             # print(angleREAL/np.pi*180)
 
-            u1 = user_video_result[n][index[0]]
-            u2 = user_video_result[n][index[1]]
-            u3 = user_video_result[n][index[2]]
+            u1 = result_user[n][index[0]]
+            u2 = result_user[n][index[1]]
+            u3 = result_user[n][index[2]]
 
             uu1 = u1 - u2
             uu2 = u3 - u2
@@ -253,13 +265,13 @@ def calculate():
                 timestamp_min_time_sec = (int)(timestamp_min_frame_num / fps)
                 timestamp_min_time_msec = (float)((timestamp_min_frame_num % fps) / fps)
                 timestamp_min_time = (float)(timestamp_min_time_sec) + timestamp_min_time_msec
-                timestamp_min_time_floor = math.floor(timestamp_min_time)
+                timestamp_min_time_floor = math.floor(timestamp_min_time * 2)
 
                 # 방금까지 측정된 부분의 시간(종료지점)
                 timestamp_max_time_sec = (int)(timestamp_max_frame_num / fps)
                 timestamp_max_time_msec = (float)((timestamp_max_frame_num % fps) / fps)
                 timestamp_max_time = (float)(timestamp_max_time_sec) + timestamp_max_time_msec
-                timestamp_max_time_ceil = math.ceil(timestamp_max_time)
+                timestamp_max_time_ceil = math.ceil(timestamp_max_time * 2)
 
                 # 관절 좌표 어느부분(2부위)이 많이 틀렸는지 체크해서 알려주기
                 joint_counter_sort = np.sort(joint_counter)[::-1]
@@ -410,7 +422,7 @@ def calculate():
 
     # print("wrong -> correct min")
     #         print(n)
-
+    txt.write("total point : " + str(total_point / (8 * length) * 100))
     txt.close()
 
     # 8 : 비교 각도의 개수 len(result) : frame 개수

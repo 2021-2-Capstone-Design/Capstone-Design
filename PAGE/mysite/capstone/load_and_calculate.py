@@ -10,9 +10,9 @@ else:
     print("Please insert 'python load_and_calculate_vector.py [dance name]'")
     sys.exit()
 
-coordinates_video_path = 'capstone/original_coordinate/' + dance_name + '.txt'
-coordinates_user_path = 'capstone/user_coordinate/' + dance_name + '.txt'
-result_path = 'capstone/results/result_' + dance_name + '.txt'
+coordinates_video_path = 'original_coordinate/' + dance_name + '.txt'
+coordinates_user_path = 'user_coordinate/' + dance_name + '_record.txt'
+result_path = 'results/result_' + dance_name + '.txt'
 
 result_video = []
 result_user = []
