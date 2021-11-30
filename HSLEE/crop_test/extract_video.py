@@ -1,17 +1,15 @@
 import cv2
-import os
 import mediapipe as mp
 import math
 import numpy as np
 import sys
 from time import sleep
-from django.shortcuts import render
 
-dance_name = sys.argv[1]
-path = "capstone/record_videos/" + dance_name + "_record.mp4"  # 기존 영상
+path = "videos/" + sys.argv[1] + ".mp4"  # 기존 영상
+# path = "capstone/record_videos/" + sys.argv[1] + "_record.mp4"  # 유저 영상
 
-# saving_path = "capstone/original_coordinate/" + sys.argv[1] + ".txt"  # 기존 영상 관절 좌표
-saving_path = "capstone/user_coordinate/" + dance_name + "_record.txt"  # 유저 영상 관절 좌표
+saving_path = "original_coordinate/" + sys.argv[1] + ".txt"  # 기존 영상 관절 좌표
+# saving_path = "capstone/user_coordinate/" + sys.argv[1] + ".txt"  # 유저 영상 관절 좌표
 
 mp_pose = mp.solutions.pose
 
@@ -82,9 +80,8 @@ def video_extract():
         txt.close()
         cap.release()
         cv2.destroyAllWindows()
+        # extract_file.close()
 
     print('*****extract success*****')
 
-def extract_record_video_main(request):
-    video_extract()
-    return render(request, 'capstone/practice.html')
+video_extract()

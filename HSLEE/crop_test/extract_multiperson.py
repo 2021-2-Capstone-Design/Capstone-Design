@@ -5,35 +5,39 @@ import math
 import numpy as np
 import sys
 from time import sleep
-from django.shortcuts import render
 
 dance_name = sys.argv[1]
-path = "capstone/record_videos/" + dance_name + "_record.mp4"  # 기존 영상
-
-# saving_path = "capstone/original_coordinate/" + sys.argv[1] + ".txt"  # 기존 영상 관절 좌표
-saving_path = "capstone/user_coordinate/" + dance_name + "_record.txt"  # 유저 영상 관절 좌표
+select_person = sys.argv[2]
+if select_person == "1":
+    path = 'crop/' + dance_name + '_1/'  # 유저 삽입(2인 영상)
+    saving_path = "original_coordinate/" + dance_name + "_1.txt"  # 유저 영상 관절 좌표
+if select_person == "2":
+    path = 'crop/' + dance_name + '_2/'
+    saving_path = "original_coordinate/" + dance_name + "_2.txt"  # 유저 영상 관절 좌표
 
 mp_pose = mp.solutions.pose
 
 def video_extract():
-    cap = cv2.VideoCapture(path)
-
-    frame_counter = 0
-    # frameTime = int((1/fps)*1000)  #time of each frame (ms단위, 몇ms당 1frame으로 할지 설정)
-    extract_time_by_per_frame = 2  # 몇프레임 당 한번 측정할지 조절 가능
-
-    result = np.array([])  # 추출된 영상의 전체 넘파이 배열
-    bone_index = [11, 12, 13, 14, 15, 16, 23, 24, 25, 26, 27, 28]  # 필요한 관절 번호
-
+    file_index = 1
     txt = open(saving_path, 'w')
 
-    with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
-        while cap.isOpened():
-            ret, frame = cap.read()
-            frame_counter += 1  # increase frame counter
+    frame_counter = 0
+    extract_time_by_per_frame = 2  # 몇프레임 당 한번 측정할지 조절 가능
 
-            # Recolor image to RGB
-            if ret:
+    while True:
+        file = str(file_index) + '.jpg'
+        if file in os.listdir(path):
+            file_name = path + file
+            frame = cv2.imread(file_name)
+
+            # frameTime = int((1/fps)*1000)  #time of each frame (ms단위, 몇ms당 1frame으로 할지 설정)
+
+            result = np.array([])  # 추출된 영상의 전체 넘파이 배열
+            bone_index = [11, 12, 13, 14, 15, 16, 23, 24, 25, 26, 27, 28]  # 필요한 관절 번호
+
+            with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
+                frame_counter += 1  # increase frame counter
+
                 if frame_counter % extract_time_by_per_frame == 0:
                     image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     image.flags.writeable = False
@@ -44,6 +48,7 @@ def video_extract():
                     # Recolor image RGB to BGR
                     image.flags.writeable = True
                     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+
 
                     # Extract landmarks
                     try:  # success to extract landmarks
@@ -71,20 +76,19 @@ def video_extract():
                     except:
                         pass
 
-            else:  # no next frame (end point of video)
-                break
-                # Show video on screen
-            cv2.imshow('Dance Video', frame)
-
             if cv2.waitKey(1) & 0xFF == 27:
                 break
-
-        txt.close()
-        cap.release()
-        cv2.destroyAllWindows()
+        else:
+            break
+        file_index += 1
+    txt.close()
+    cv2.destroyAllWindows()
+    # extract_file.close()
 
     print('*****extract success*****')
 
-def extract_record_video_main(request):
-    video_extract()
-    return render(request, 'capstone/practice.html')
+video_extract()
+
+# def extract_record_video_main(request):
+#     video_extract()
+#     return render(request, 'capstone/practice.html')

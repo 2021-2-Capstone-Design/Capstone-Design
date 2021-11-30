@@ -1,5 +1,6 @@
 import cv2
 import sys
+import os
 import mediapipe as mp
 import math
 import numpy as np
@@ -7,16 +8,28 @@ import time
 
 mp_pose = mp.solutions.pose
 
-file_path = 'videos/' + sys.argv[1]
+dance_name = sys.argv[1]
+file_path = 'videos/' + dance_name + '.mp4'
+saving_person1_path = 'crop/' + dance_name + '_1/'
+try:
+    if not os.path.exists(saving_person1_path):
+        os.makedirs(saving_person1_path)
+except OSError:
+    print ('Already existence : ' +  saving_person1_path)
+
+saving_person2_path = 'crop/' + dance_name + '_2/'
+try:
+    if not os.path.exists(saving_person2_path):
+        os.makedirs(saving_person2_path)
+except OSError:
+    print ('Already existence : ' +  saving_person2_path)
 
 extract_time_by_per_frame = 1 # 6프레임당 1프레임 저장 (보통 24fps 또는 30fps 이므로 최대공약수 이용)
 frame_counter = 0
 frame_number = 1
 
 
-
-
-###################### image #######################
+# image
 
 # image = cv2.imread(file_path)
 #
@@ -37,8 +50,6 @@ frame_number = 1
 # blob = cv2.dnn.blobFromImage(image, scale, (416, 416), (0, 0, 0), True, crop=False)
 # net.setInput(blob)
 # outs = net.forward(output_layers)
-#
-# outputs = []
 #
 # person_number = 1
 # same_check_x = -50.0
@@ -77,106 +88,113 @@ frame_number = 1
 #                 print("x : " + str(x) + ", y : " + str(y) + ", w : " + str(w) + ", h : " + str(h) + ", confidence : " + str(confidence) + "\n")
 #                 crop_img = image2[math.floor(y):math.ceil(y + h), math.floor(x):math.ceil(x + w)]
 #                 cv2.imwrite("crop/frame" + str(frame_number) + "_" + str(person_number) + ".jpg", crop_img)
-#                 outputs.append(crop_img)
 #                 person_number += 1
 
 
+# video
+def cropping():
+    global frame_counter
+    global frame_number
 
+    start_time = time.time()
 
-###################### video #######################
+    cap = cv2.VideoCapture(file_path)
 
-start_time = time.time()
+    while cap.isOpened():
+        success, frame = cap.read()
+        frame_counter += 1 #increase frame counter
 
-cap = cv2.VideoCapture(file_path)
+        if not success:
+            print("No frame.")
+            # If loading a video, use 'break' instead of 'continue'.
+            break
 
-while cap.isOpened():
-    success, frame = cap.read()
-    frame_counter += 1 #increase frame counter
+        if success:
+            if frame_counter % extract_time_by_per_frame == 0:
+                width = frame.shape[1]
+                height = frame.shape[0]
 
-    if not success:
-        print("No frame.")
-        # If loading a video, use 'break' instead of 'continue'.
-        break
+                # 필요해서 그대로 복붙한 것
+                scale = 0.00392
+                classes = None
 
-    if success:
-        if frame_counter % extract_time_by_per_frame == 0:
-            width = frame.shape[1]
-            height = frame.shape[0]
+                with open("coco.names", 'r') as f:
+                    classes = [line.strip() for line in f.readlines()]
 
-            # 필요해서 그대로 복붙한 것
-            scale = 0.00392
-            classes = None
+                COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
+                net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
+                layer_names = net.getLayerNames()
+                output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
-            with open("coco.names", 'r') as f:
-                classes = [line.strip() for line in f.readlines()]
+                blob = cv2.dnn.blobFromImage(frame, scale, (416, 416), (0, 0, 0), True, crop=False)
+                net.setInput(blob)
+                outs = net.forward(output_layers)
 
-            COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
-            net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
-            layer_names = net.getLayerNames()
-            output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
+                person_number = 1 # 크롭된 이미지 번호 출력하기 위함
+                same_check_x = -50.0
+                person1_flag = False
+                person2_flag = False
+                next_frame_flag = False
 
-            blob = cv2.dnn.blobFromImage(frame, scale, (416, 416), (0, 0, 0), True, crop=False)
-            net.setInput(blob)
-            outs = net.forward(output_layers)
-
-            outputs = []
-
-            person_number = 1 # 크롭된 이미지 번호 출력하기 위함
-            same_check_x = -50.0
-            person1_flag = False
-            person2_flag = False
-            next_frame_flag = False
-
-            for out in outs:
-                if next_frame_flag == True:
-                    break
-
-                person1_flag = True
-                for detection in out:
-                    if person1_flag == True and person2_flag == True:
-                        next_frame_flag = True
+                for out in outs:
+                    if next_frame_flag == True:
                         break
 
-                    image2 = frame
-                    scores = detection[5:]
-                    class_id = np.argmax(scores)
-                    confidence = scores[class_id]
-                    if confidence > 0.9 and str(classes[class_id]) == "person":
-                        center_x = int(detection[0] * width)
-                        center_y = int(detection[1] * height)
-                        w = int(detection[2] * width)
-                        h = int(detection[3] * height)
-                        x = center_x - w / 2
-                        y = center_y - h / 2
+                    person1_flag = True
+                    for detection in out:
+                        if person1_flag == True and person2_flag == True:
+                            next_frame_flag = True
+                            break
 
-                        if x >= 20:
-                            x = x - 20
-                        else:
-                            x = 0
+                        image2 = frame
+                        scores = detection[5:]
+                        class_id = np.argmax(scores)
+                        confidence = scores[class_id]
+                        if confidence > 0.9 and str(classes[class_id]) == "person":
+                            center_x = int(detection[0] * width)
+                            center_y = int(detection[1] * height)
+                            w = int(detection[2] * width)
+                            h = int(detection[3] * height)
+                            x = center_x - w / 2
+                            y = center_y - h / 2
 
-                        if y >= 20:
-                            y = y - 20
-                        else:
-                            y = 0
+                            if x >= 20:
+                                x = x - 20
+                            else:
+                                x = 0
 
-                        w, h = w + 20, h + 20
+                            if y >= 20:
+                                y = y - 20
+                            else:
+                                y = 0
 
-                        if (same_check_x - 45.0 < x and x <= same_check_x + 45.0):
-                            print("same person")
-                            continue
-                        else:
-                            same_check_x = x
-                            print("x : " + str(x) + ", y : " + str(y) + ", w : " + str(w) + ", h : " + str(
-                                h) + ", confidence : " + str(confidence) + "\n")
-                            crop_img = image2[math.floor(y):math.ceil(y + h), math.floor(x):math.ceil(x + w)]
-                            cv2.imwrite("crop/frame" + str(frame_number) + "_" + str(person_number) + ".jpg", crop_img)
-                            outputs.append(crop_img)
-                            person_number += 1
+                            w, h = w + 20, h + 20
 
-                        if person_number == 3:
-                            person2_flag = True
+                            if (same_check_x - 45.0 < x and x <= same_check_x + 45.0):
+                                print("same person")
+                                continue
+                            else:
+                                same_check_x = x
+                                print("x : " + str(x) + ", y : " + str(y) + ", w : " + str(w) + ", h : " + str(
+                                    h) + ", confidence : " + str(confidence) + "\n")
+                                crop_img = image2[math.floor(y):math.ceil(y + h), math.floor(x):math.ceil(x + w)]
+                                if(person_number == 1):
+                                    cv2.imwrite(saving_person1_path + str(frame_number) + ".jpg", crop_img)
+                                elif(person_number == 2):
+                                    cv2.imwrite(saving_person2_path + str(frame_number) + ".jpg", crop_img)
 
-            frame_number += 1
-            print("----------------------------- \n\n")
+                                person_number += 1
 
-print("Elapsed time : ", time.time() - start_time)
+                            if person_number == 3:
+                                person2_flag = True
+
+                frame_number += 1
+                print("----------------------------- \n\n")
+
+    print("Elapsed time : ", time.time() - start_time)
+
+cropping()
+
+# def crop_main(request):
+#     cropping()
+#     return render(request, 'capstone/practice.html')
