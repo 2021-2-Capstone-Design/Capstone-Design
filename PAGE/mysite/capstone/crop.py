@@ -5,26 +5,17 @@ import mediapipe as mp
 import math
 import numpy as np
 import time
+from django.shortcuts import render
 
 mp_pose = mp.solutions.pose
 
-dance_name = sys.argv[1]
-file_path = 'videos/' + dance_name + '.mp4'
-saving_person1_path = 'crop/' + dance_name + '_1/'
-try:
-    if not os.path.exists(saving_person1_path):
-        os.makedirs(saving_person1_path)
-except OSError:
-    print ('Already existence : ' +  saving_person1_path)
+dance_name = "" # sys.argv[1]
+file_path = "" # 'videos/' + dance_name + '.mp4'
+saving_person1_path = "" # 'crop/' + dance_name + '_1/'
+saving_person2_path = "" # 'crop/' + dance_name + '_2/'
 
-saving_person2_path = 'crop/' + dance_name + '_2/'
-try:
-    if not os.path.exists(saving_person2_path):
-        os.makedirs(saving_person2_path)
-except OSError:
-    print ('Already existence : ' +  saving_person2_path)
 
-extract_time_by_per_frame = 1 # 6프레임당 1프레임 저장 (보통 24fps 또는 30fps 이므로 최대공약수 이용)
+extract_time_by_per_frame = 1
 frame_counter = 0
 frame_number = 1
 
@@ -51,7 +42,6 @@ def cropping():
                 width = frame.shape[1]
                 height = frame.shape[0]
 
-                # 필요해서 그대로 복붙한 것
                 scale = 0.00392
                 classes = None
 
@@ -67,7 +57,7 @@ def cropping():
                 net.setInput(blob)
                 outs = net.forward(output_layers)
 
-                person_number = 1 # 크롭된 이미지 번호 출력하기 위함
+                person_number = 1 # crop image numbering
                 same_check_x = -50.0
                 person1_flag = False
                 person2_flag = False
@@ -131,4 +121,24 @@ def cropping():
     print("Elapsed time : ", time.time() - start_time)
 
 
-cropping()
+def crop_main(songname):
+    global dance_name, file_path, saving_person1_path, saving_person2_path
+
+    dance_name = songname
+
+    file_path = 'videos/' + dance_name + '.mp4'
+    saving_person1_path = 'crop/' + dance_name + '_1/'
+    saving_person2_path = 'crop/' + dance_name + '_2/'
+
+    try:
+        if not os.path.exists(saving_person1_path):
+            os.makedirs(saving_person1_path)
+    except OSError:
+        print ('Already existence : ' + saving_person1_path)
+    try:
+        if not os.path.exists(saving_person2_path):
+            os.makedirs(saving_person2_path)
+    except OSError:
+        print ('Already existence : ' + saving_person2_path)
+
+    cropping()
