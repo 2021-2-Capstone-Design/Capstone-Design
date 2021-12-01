@@ -1,25 +1,49 @@
 from django.urls import path
+
+from . import start_practice
 from . import views
 from . import test1
 from . import test2
+from . import finaltest
+
 
 
 from django.contrib.auth import views as auth_views
+from django.conf.urls import url
 
 app_name = 'capstone'
 
 urlpatterns = [
+    url(r'^external', views.practice , name = 'external'),
+
+
+
     path('', views.main, name='main'),
     path('firstpage/', views.first, name='first'),
     path('team/', views.team, name='team'),
     path('songlist/', views.songlist, name='songlist'),
-    path('practice/', views.practice, name='practice'),
-    path('record/', views.record, name='record'),
 
-    path('mypage/', test2.testmain, name='mypage'),
+    path('practice/', views.practice, name='practice'),
+    # path('practice/', finaltest.testmain, name='practice'),
+    #path('practice/', views.practice, name='practice'),
+    path('practice/<str:songname>/', views.practice_detail, name='songpractice'),
+    path('practice/<str:songname>/step1/', views.step1 ),
+    path('practice/<str:songname>/step2/', views.step2 ),
+    path('practice/<str:songname>/step3/', views.step3 ),
+
+    # path('practice/<str:songname>/step1', finaltest.testmain, name='practice'),
+    # path('practice/<str:songname>/step2', finaltest.testmain, name='practice'),
+    # path('practice/<str:songname>/', finaltest.testmain, name='practice'),
+    
+
+
+    path('record/', views.record, name='record'),
+    #path('mypage/', views.mypage, name='mypage'),
+    # path('mypage/', finaltest.testmain, name='mypage'),
+    #path('mypage/', test2.testmain, name='mypage'),
     #path('mypage/', test1.testmain, name='mypage'),
     #path('waiting/', views.waiting, name='waiting'),
-    #path('mypage/', views.mypage, name='mypage'),
+   
 
     path('login/',auth_views.LoginView.as_view(template_name='capstone/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),

@@ -8,8 +8,8 @@
 
   <style>
 
-  #box ul li {list-style-type: none;  outline: 1px green solid;
-         font-size: 25px; text-align: center; padding: 60px;}
+  #box ul li {list-style-type: none;  outline: 1px white solid;
+         font-size: 30px; text-align: center; padding: 110px 60px 60px 60px;  padding-inline-start: 0px;}
 
   a:link {
   color : black;
@@ -38,11 +38,11 @@
 
 
 <body>
-  <div id = "box" style=" position: absolute; border: 1px blue solid; width: 400px;  margin: 20px;">
+  <div id = "box" style=" position: absolute; border: 1px olive solid; width: 400px; height: 97%; background-color: palegoldenrod;">
     <ul>
-      <li ><a href = "{% url 'capstone:main' %}team/">팀</a></li>
+      <!-- <li ><a href = "{% url 'capstone:main' %}team/">팀</a></li> -->
       <li><a href = "{% url 'capstone:main' %}songlist/">곡 리스트</a></li>
-      <li><a href = "{% url 'capstone:main' %}practice/">연습</a></li>
+      <li><a href = "{% url 'capstone:main' %}practice/"><strong>연습</strong></a></li>
       <li><a href = "{% url 'capstone:main' %}record/">기록</a></li>
     </ul>
     <!-- <p>팀 & 연습</p>
@@ -54,15 +54,58 @@
   
 
   <div id="mypage" style="border: 1px white solid; position: absolute; margin-left: 1350px; margin-top: -30px;">
-    <p style="font-size : 30px"><a href = "{% url 'capstone:main' %}mypage/">MYPAGE</a></p>
+    <!-- <p style="font-size : 30px"><a href = "{% url 'capstone:main' %}mypage/">MYPAGE</a></p> -->
   </div>
-  <div id = "menutitle" style="border: 1px red solid; position: absolute; margin-left: 500px;" >
+  <div id = "menutitle" style="border: 1px white solid; position: absolute; margin-left: 500px;" >
     <h1>연습</h1>
   </div>
-  <div id="choosemenu" style="border: 1px olive solid; position: absolute; margin-left: 700px; margin-top: 200px; width : 400px">
+  <div id="choosemenu" style="border: 1px white solid; position: absolute; margin-left: 700px; margin-top: 100px; width : 400px">
     <p style="font-size : 30px">동영상을 업로드하세요</p>
-    <input type="file" name="file" id="imageFileOpenInput" accept="image/mp4">
-  </div>
-  
 
+    <!---사용자에게 input file을 받을 때 this.value 찾아서 하면 됨-->
+    <input type="file" name="file" id="imageFileOpenInput" accept="image/mp4" onchange="alert(this.value)" >
+    <!-- <button type="button"  onclick=" '{% url 'capstone:practice' %}' " value="test">asdfasdf</button> -->
+
+
+
+    <form >
+      {% csrf_token %}
+      Input file:
+      <input type = "file" accept="image/mp4" name="param" required><br><br>
+      
+      <input type = "submit" value = "Get the Input">
+    </form>
+
+    <form>
+
+      <select name = "songchoose" style="float: left;" >
+        <option value = "none">==song==</option>
+        {% if song_list %}
+        {% for song in song_list %} 
+          <option value = song.song onchange="alert(this.value)">{{song.song}}</option>
+        {% endfor %}
+        </option>
+        {% else %}
+          <p>노래가 없습니다.</p>
+        {% endif %}
+      </select>
+
+
+
+      <br><br>
+      {% if song_list %}
+    <ul>
+    {% for song in song_list %}
+        <li><a href="{% url 'capstone:practice' %}{{ song.song }}/">{{ song.song }} , {{ song.artist }}, {{ song.time }}</li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        <p>노래가 없습니다.</p>
+    {% endif %}
+
+
+      <input type = "submit" value = "노래선택">
+    </form>
+  </div>
+<!-- window.location.reload() -->
 </html>

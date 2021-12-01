@@ -4,6 +4,9 @@ from django.shortcuts import render, get_object_or_404
 # Create your views here.
 from django.http import HttpResponse
 from .models import *
+
+from subprocess import run, PIPE
+import sys
 app_name = 'capstone'
 
 
@@ -30,8 +33,43 @@ def songlist(request):
     return render(request, 'capstone/songlist.html', context)
 
 
-def practice(request):
-    return render(request, 'capstone/practice.html')
+
+
+
+
+def  practice(request):
+    song_list = DanceInfo.objects.order_by('song')
+    context = {'song_list': song_list}
+    # inp = request.POST.get('param')
+    # out = run([sys.executable, './test1.py',inp], shell = False, stdout=PIPE)
+    # print(out)
+
+    #return render(request, 'capstone/practice.html')
+    return render(request, 'capstone/practice.html', context)
+
+
+def practice_detail(request, songname):
+    aa = str(songname)
+    #return HttpResponse( songname)
+    return render (request, 'capstone/practice_song.html', {'song' : songname})
+
+def step1(request, songname):
+    aa = str(songname)
+    #return HttpResponse( songname)
+    return render (request, 'capstone/step1.html', {'song' : songname})
+
+def step2(request, songname):
+    aa = str(songname)
+    #return HttpResponse( songname)
+    return render (request, 'capstone/step2.html', {'song' : songname})
+
+def step3(request, songname):
+    aa = str(songname)
+    # return HttpResponse( songname)
+    return render (request, 'capstone/step3.html', {'song' : songname})
+
+
+
 
 
 def record(request):

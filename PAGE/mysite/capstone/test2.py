@@ -38,6 +38,7 @@ def run_video():
     media_player.set_fullscreen(True)
     while True:
         if vlc_play_flag == True:
+            time.sleep(1)
             break
     media_player.play()
     time.sleep(1)
