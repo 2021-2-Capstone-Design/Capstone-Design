@@ -22,7 +22,7 @@ else:
 
 path = 'videos/' + dance_name + '.mp4'
 cap = cv2.VideoCapture(path)
-fps = cap.get(cv2.CAP_PROP_FPS)
+fps = 30.0
 
 cap.release()
 

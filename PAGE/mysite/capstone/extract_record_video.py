@@ -7,11 +7,11 @@ import sys
 from time import sleep
 from django.shortcuts import render
 
-dance_name = sys.argv[1]
-path = "capstone/record_videos/" + dance_name + "_record.mp4"  # 기존 영상
+dance_name = "" # sys.argv[1]
+path = "" # "capstone/record_videos/" + dance_name + "_record.mp4"  # 기존 영상
 
 # saving_path = "capstone/original_coordinate/" + sys.argv[1] + ".txt"  # 기존 영상 관절 좌표
-saving_path = "capstone/user_coordinate/" + dance_name + "_record.txt"  # 유저 영상 관절 좌표
+saving_path = "" # "capstone/user_coordinate/" + dance_name + "_record.txt"  # 유저 영상 관절 좌표
 
 mp_pose = mp.solutions.pose
 
@@ -74,7 +74,7 @@ def video_extract():
             else:  # no next frame (end point of video)
                 break
                 # Show video on screen
-            cv2.imshow('Dance Video', frame)
+            # cv2.imshow('Dance Video', frame)
 
             if cv2.waitKey(1) & 0xFF == 27:
                 break
@@ -85,6 +85,12 @@ def video_extract():
 
     print('*****extract success*****')
 
-def extract_record_video_main(request):
+def extract_record_video_main(songname):
+    global dance_name, path, saving_path
+    dance_name = songname
+    path = "capstone/record_videos/" + dance_name + "_record.mp4" 
+    saving_path = "capstone/user_coordinate/" + dance_name + "_record.txt"
+    
     video_extract()
-    return render(request, 'capstone/practice.html')
+
+    #return render(request, 'capstone/practice.html')

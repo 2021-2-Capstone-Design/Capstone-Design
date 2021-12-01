@@ -6,8 +6,8 @@ import numpy as np
 import sys
 from time import sleep
 
-dance_name = sys.argv[1]
-select_person = sys.argv[2]
+dance_name = sys.argv[1] # 확장자 뗀 파일 이름
+select_person = sys.argv[2] # 1--> 첫번째 사람. 2--> 두번째 사람 등
 if select_person == "1":
     path = 'crop/' + dance_name + '_1/'  # 유저 삽입(2인 영상)
     saving_path = "original_coordinate/" + dance_name + "_1.txt"  # 유저 영상 관절 좌표

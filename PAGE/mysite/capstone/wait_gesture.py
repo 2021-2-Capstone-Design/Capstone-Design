@@ -70,6 +70,7 @@ def wait_gesture():
                 mpDraw.draw_landmarks(img, handLandmark, mpHands.HAND_CONNECTIONS)
         print(count)
         cv2.imshow('MediaPipe Hands', cv2.flip(img, 1))  # 셀프 카메라이므로 좌우반전 돼서 나오게
+        cv2.setWindowProperty('MediaPipe Hands', cv2.WND_PROP_TOPMOST, 1)
         if cv2.waitKey(1) & 0xFF == 27:
             break
         if count > 60:
@@ -78,7 +79,7 @@ def wait_gesture():
     cv2.destroyAllWindows()
 
 
-def wait_gesture_main(request):
-    render(request, 'capstone/waiting.html')
+def wait_gesture_main():
+    #render(request, 'capstone/waiting.html')
     wait_gesture()
-    return render(request, 'capstone/practice.html')
+    #return render(request, 'capstone/practice.html')

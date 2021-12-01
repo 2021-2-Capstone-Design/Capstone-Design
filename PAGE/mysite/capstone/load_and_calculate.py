@@ -432,5 +432,5 @@ def calculate():
 
     # 8 : 비교 각도의 개수 len(result) : frame 개수
 
-load()
-calculate()
+# load()
+# calculate()

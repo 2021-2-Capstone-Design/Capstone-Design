@@ -1,17 +1,20 @@
 import sys
+import cv2
 import math
 import numpy as np
-from django.shortcuts import render
+# from django.shortcuts import render
 
-dance_name = sys.argv[1]
+dance_name = ""# sys.argv[1]
 coordinates_video_path = 'capstone/original_coordinate/' + dance_name + '.txt'
 coordinates_user_path = 'capstone/user_coordinate/' + dance_name + '_record.txt'
 result_path = 'capstone/results/result_' + dance_name + '.txt'
+fps = 0
 
 result_video = []
 result_user = []
 
 def load_score():
+    global fps
     global result_video
     global result_user
     global result_path
@@ -407,6 +410,17 @@ def load_score():
     txt.write("total point : " + str(total_point / (8 * length) * 100))
     txt.close()
 
-    def load_score_main(request):
-        load_score()
-        return render(request, 'capstone/practice.html')
+
+def load_score_main(songname):
+    global dance_name,coordinates_video_path,coordinates_user_path,result_path, fps
+
+    cap = cv2.VideoCapture('capstone/videos/'+ dance_name + '.mp4')
+    fps = cap.get(cv2.CAP_PROP_FPS)
+
+    dance_name = songname
+    coordinates_video_path = 'capstone/original_coordinate/' + dance_name + '.txt'
+    coordinates_user_path = 'capstone/user_coordinate/' + dance_name + '_record.txt'
+    result_path = 'capstone/results/result_' + dance_name + '.txt'
+
+    load_score()
+    # return render(request, 'capstone/practice.html')

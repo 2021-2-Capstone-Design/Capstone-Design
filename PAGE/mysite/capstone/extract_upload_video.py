@@ -6,8 +6,8 @@ import sys
 from time import sleep
 
 dance_name = sys.argv[1]
-path = "capstone/videos/" + dance_name + ".mp4"  # 기존 영상
-saving_path = "capstone/original_coordinate/" + dance_name + ".txt" 
+path = "videos/" + dance_name + ".mp4"  # 기존 영상
+saving_path = "original_coordinate/" + dance_name + ".txt" 
 
 mp_pose = mp.solutions.pose
 
@@ -80,5 +80,7 @@ def video_extract():
         cv2.destroyAllWindows()
 
     print('*****extract success*****')
+
+
 
 video_extract()
