@@ -64,6 +64,7 @@ def record_video():
             out.write(img)
         else:
             out.release()
+            webcam.release()
             cv2.destroyAllWindows()
             break
         if count<20:
