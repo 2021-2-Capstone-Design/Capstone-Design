@@ -69,6 +69,7 @@ def record_video_with_webcam_window():
             out.write(img)
         else:
             out.release()
+            webcam.release()
             cv2.destroyAllWindows()
             break
         cv2.putText(img, 'recording',(10,10),cv2.FONT_HERSHEY_SIMPLEX,0.5,(255,0,0),2,cv2.LINE_AA) #recording 표시
