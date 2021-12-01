@@ -6,6 +6,7 @@ from . import test1
 from . import test2
 from . import finaltest
 from . import step
+from . import extract_to_calculate
 
 
 
@@ -35,7 +36,7 @@ urlpatterns = [
     # path('practice/<str:songname>/step1', finaltest.testmain, name='practice'),
     # path('practice/<str:songname>/step2', finaltest.testmain, name='practice'),
     # path('practice/<str:songname>/', finaltest.testmain, name='practice'),
-    
+
 
 
     path('record/', views.record, name='record'),
