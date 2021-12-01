@@ -39,13 +39,10 @@ class User(models.Model):
 
 
 class Record(models.Model):  # record
-    playerName = models.ForeignKey(User, on_delete=models.CASCADE)  # player name
     song = models.CharField(max_length=200)
-    artist = models.CharField(max_length=200)
     score = models.IntegerField()
-    create_date = models.DateTimeField()  # 없애도 됨
 
     def __str__(self):
-        return self.playerName.name + '-' + self.artist + '/' + self.song
+        return self.song + '-' + self.score 
 
 

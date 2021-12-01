@@ -5,6 +5,7 @@ from . import views
 from . import test1
 from . import test2
 from . import finaltest
+from . import step
 
 
 
@@ -27,9 +28,9 @@ urlpatterns = [
     # path('practice/', finaltest.testmain, name='practice'),
     #path('practice/', views.practice, name='practice'),
     path('practice/<str:songname>/', views.practice_detail, name='songpractice'),
-    path('practice/<str:songname>/step1/', views.step1 ),
-    path('practice/<str:songname>/step2/', views.step2 ),
-    path('practice/<str:songname>/step3/', views.step3 ),
+    path('practice/<str:songname>/step1/', step.step1main ),
+    path('practice/<str:songname>/step2/', step.step2main ),
+    path('practice/<str:songname>/step3/', step.step3main ),
 
     # path('practice/<str:songname>/step1', finaltest.testmain, name='practice'),
     # path('practice/<str:songname>/step2', finaltest.testmain, name='practice'),
