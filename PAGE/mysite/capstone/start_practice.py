@@ -11,7 +11,6 @@ import vlc
 import threading
 import tkinter as tk
 
-from django.shortcuts import render
 
 # start_practice
 vlc_play_flag = False
@@ -37,9 +36,11 @@ def run_video():
     media_player.video_set_scale(1)
     media_player.audio_set_volume(100)
     media_player.set_fullscreen(True)
-    while True:
-        if vlc_play_flag == True:
-            break
+
+    time.sleep(9)
+    # while True:
+    #     if vlc_play_flag == True:
+    #         break
     media_player.play()
     time.sleep(1)
     video_runtime = media_player.get_length()
@@ -131,8 +132,9 @@ def start_practice_main(songname):
     else:
         threading.Thread(target = record_video_without_webcam_window).start()
         threading.Thread(target = run_video).start()
-    while True:
-        if flag == 1:
-            return True
+
+    # while True:
+    #     if flag == 1:
+    #         return True
 
     # return render(request,'capstone/mainpage.html')
