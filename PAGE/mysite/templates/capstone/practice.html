@@ -31,19 +31,19 @@
       outline: 1px black solid;
     }
     #box_left {
-      flex = 1;
+      flex : 1;
       background: palegoldenrod;
       outline: 1px black solid;
       width : 100%;
     }
     #box_middle {
-      flex = 1;
+      flex : 1;
       background: yellow;
       outline: 1px black solid;
       width : 100%;
     }
     #box_right {
-      flex = 1;
+      flex : 1;
       background: palegoldenrod;
       outline: 1px black solid;
       width : 100%;
@@ -83,10 +83,10 @@
         <a href = "{% url 'capstone:main' %}songlist/">곡 리스트</a>
       </div>
       <div id = 'box_middle'>
-        <a href = "{% url 'capstone:main' %}songlist/"><strong>연습</strong></a>
+        <a href = "{% url 'capstone:main' %}practice/"><strong>연습</strong></a>
       </div>
       <div id = 'box_right'>
-        <a href = "{% url 'capstone:main' %}songlist/">기록</a>
+        <a href = "{% url 'capstone:main' %}record/">기록</a>
       </div>
     </div>
 
