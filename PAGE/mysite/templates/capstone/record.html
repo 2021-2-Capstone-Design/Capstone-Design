@@ -8,12 +8,54 @@
 
   <style>
 
-  #box ul li {list-style-type: none;  outline: 1px green solid;
-         font-size: 25px; text-align: center; padding: 60px;}
+  #container {
+    list-style-type: none;
+    padding-inline-start: 0px;
+    width : 99%;
+    height : 98%;
+  }
+  #box_container {
+    padding-top: 50px;
+    text-align: center;
+    font-size: 30px;
+    display: flex;
+    margin: 0 auto;
+    width : 60%;
+    height : 150px;
+    line-height: 150px;
+  }
+  #upload_container{
+    width : 60%;
+    margin: 0 auto;
+    background: palegoldenrod;
+    outline: 1px black solid;
+  }
+  #box_left {
+    flex = 1;
+    background: palegoldenrod;
+    outline: 1px black solid;
+    width : 100%;
+  }
+  #box_middle {
+    flex = 1;
+    background: palegoldenrod;
+    outline: 1px black solid;
+    width : 100%;
+  }
+  #box_right {
+    flex = 1;
+    background: yellow;
+    outline: 1px black solid;
+    width : 100%;
+  }
+
+/* #box ul li {list-style-type: none;  outline: 1px white solid;
+       font-size: 30px; text-align: center; padding: 60px 60px 60px 60px;  padding-inline-start: 0px;} */
+
   a:link {
   color : black;
   text-decoration: none;
-  } 
+  }
   a:visited {
     color : black;
     text-decoration: none;
@@ -32,36 +74,50 @@
 
 
 <script>
- 
+
 </script>
 
 
 <body>
-  <div id = "box" style=" position: absolute; border: 1px blue solid; width: 400px;  margin: 20px;">
-    <ul>
+  <div id = 'container' style="position: absolute; background-color: white;">
+    <div id = 'box_container'>
+      <div id = 'box_left'>
+        <a href = "{% url 'capstone:main' %}songlist/">곡 리스트</a>
+      </div>
+      <div id = 'box_middle'>
+        <a href = "{% url 'capstone:main' %}songlist/">연습</a>
+      </div>
+      <div id = 'box_right'>
+        <a href = "{% url 'capstone:main' %}songlist/"><strong>기록</strong></a>
+      </div>
+    </div>
+
+    <!-- <ul> -->
       <!-- <li ><a href = "{% url 'capstone:main' %}team/">팀</a></li> -->
-      <li><a href = "{% url 'capstone:main' %}songlist/">곡 리스트</a></li>
-      <li><a href = "{% url 'capstone:main' %}practice/">연습</a></li>
-      <li><a href = "{% url 'capstone:main' %}record/">기록</a></li>
-    </ul>
+      <!-- <li><a href = "{% url 'capstone:main' %}songlist/" style = "height : 33%">곡 리스트</a></li>
+      <li><a href = "{% url 'capstone:main' %}practice/" style = "height : 33%"><strong>연습</strong></a></li>
+      <li><a href = "{% url 'capstone:main' %}record/" style = "height : 33%">기록</a></li> -->
+    <!-- </ul> -->
     <!-- <p>팀 & 연습</p>
     <p>팀 & 연습</p>
     <p>팀 & 연습</p>
     <p>팀 & 연습</p> -->
-
+    <div id = 'upload_container'>
+      <div>
+        <h1 style="position:absolute; padding-left: 40px">content</h1>
+        <div id = "content" style="margin:0 auto; padding-left: 50px; padding-top: 100px; padding-bottom: 100px; margin-top : 100px; height : 400px">
+          <a>--------------------- 여기 자리 차지하는 중입니다 -----------------------</a>
+        </div>
+      </div>
+    </div>
   </div>
-  
+
 
   <!-- <div id="mypage" style="border: 1px white solid; position: absolute; margin-left: 1350px; margin-top: -30px;">
     <p style="font-size : 30px"><a href = "http://localhost:8000/anmu/mypage/">MYPAGE</a></p>
   </div> -->
 
-  <div id = "menutitle" style="border: 1px red solid; position: absolute; margin-left: 500px;" >
-    <h1>기록</h1>
-  </div>
-  <div id = "content" style="border: 1px olive solid; position: absolute; margin-left: 500px; margin-top : 100px; width: 980px; height: 550px;" >
-    <h1>content</h1>
-  </div>
-  
+
+
 
 </html>
