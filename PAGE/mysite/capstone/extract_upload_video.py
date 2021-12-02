@@ -85,8 +85,8 @@ def extract_upload_video_main(songname):
     global dance_name, path, saving_path
 
     dance_name = songname
-    path = "videos/" + dance_name + ".mp4"  # 기존 영상
-    saving_path = "original_coordinate/" + dance_name + ".txt"
+    path = "capstone/videos/" + dance_name + ".mp4"  # 기존 영상
+    saving_path = "capstone/original_coordinate/" + dance_name + ".txt"
 
     video_extract()
     #이 부분부터 start_practice2 로 연결

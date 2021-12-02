@@ -16,15 +16,17 @@
 
 
 <body>
-  <div id = "box" style=" position: absolute; border: 1px blue solid; width: 400px;  margin: 20px;">
+  <div id = "box" style=" position: absolute; border: 1px blue solid; margin: 20px;">
       <!-- <h1 style = "position : absolute; fontsize : 30px" >잠시만<br>기다려주세요</h1> -->
 
       <p>{{song}}</p>
+      <h1>잠시만 기다리시면 카메라가 켜집니다</h1>
 
 
-      <p><a href="{% url 'capstone:practice' %}{{ song }}/step2/">step2</a></p>
+      <p>녹화가 완료되면 아래 버튼을 눌러주세요</p>
+      <!-- <p><a href="{% url 'capstone:practice' %}{{ song }}/step2/">step2</a></p> -->
       <input type="button" value="step2" style="position:absolute; top : 60%; right: 35%;font-size: 30px; padding-left: 30px; padding-right: 30px;"
-      onclick="location.href = '{% url 'capstone:practice' %}{{ song }}/step2/'">
+                 onclick="location.href = '{% url 'capstone:practice' %}{{ song }}/step2/'">
       <!-- http://localhost:8000/anmu/practice/person_back/step2/ -->
       <!-- '{% url 'capstone:practice' %}}{{ song }}/step2/' -->
       <!-- 'http://localhost:8000/anmu/practice/person_back/step2/' -->

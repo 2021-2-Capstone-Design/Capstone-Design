@@ -43,6 +43,6 @@ class Record(models.Model):  # record
     score = models.IntegerField()
 
     def __str__(self):
-        return self.song + '-' + self.score 
+        return self.song + '-' + str(self.score )
 
 

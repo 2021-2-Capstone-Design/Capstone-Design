@@ -92,23 +92,25 @@ def video_extract():
 
 
 
-def extract_to_calculate_main(request, songname):
+def extract_to_calculate_main(songname):
+    print(songname)
     # redirect( 'capstone/waiting.html')
     # render(request, 'capstone/waiting.html')
     global dance_name, path , saving_path
     dance_name = songname
-    dance_name = ""  # sys.argv[1]
+    #dance_name = ""  # sys.argv[1]
     path = "capstone/record_videos/" + dance_name + "_record.mp4"  # 유저 기존 영상
 
     # saving_path = "capstone/original_coordinate/" + sys.argv[1] + ".txt"  # 기존 영상 관절 좌표
     saving_path = "capstone/user_coordinate/" + dance_name + "_record.txt"  # 유저 영상 관절 좌표
+    print(saving_path)
 
-    print(1)
+    print("video extract")
     video_extract()
-    print(2)
+    print("video extract success")
 
     time.sleep(1)
     load_score.load_score_main(songname)
-    print(3)
+    print("score done")
 
-    return render(request, 'capstone/waiting.html')
+    #return render(request, 'capstone/waiting.html')

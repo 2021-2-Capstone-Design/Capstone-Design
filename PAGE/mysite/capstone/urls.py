@@ -28,10 +28,44 @@ urlpatterns = [
     path('practice/', views.practice, name='practice'),
     # path('practice/', finaltest.testmain, name='practice'),
     #path('practice/', views.practice, name='practice'),
-    path('practice/<str:songname>/', views.practice_detail, name='songpractice'),
-    path('practice/<str:songname>/step1/', step.step1main ),
-    path('practice/<str:songname>/step2/', step.step2main ),
-    path('practice/<str:songname>/step3/', step.step3main ),
+
+
+
+
+
+    path('practice/<str:songname>/', step.practice_detail, name='songpractice'),
+    
+    # 원래 있는 파일
+    path('practice/<str:songname>/step1/', step.step1main,name = 'step1' ),
+    path('practice/<str:songname>/step2/', step.step2main,name = 'step2' ),
+    path('practice/<str:songname>/step3/', step.step3main,name = 'step3' ),
+
+
+
+
+    # 업로드 할 때
+    path('practice/C:/fakepath/<str:songpath>/choosenum/', step.choosenum ), # 파일 업로드 하고 누르면 해당 파일 정보를 가지고 몇명을 선택할 지 선택하는 창
+    
+    # 업로드 후 1인이라고 할 때
+    path('practice/<str:songname>/userinput/step1/', step.userstep1main, name = 'userstep1' ),
+    #path('practice/C:/fakepath/<str:songpath>/choosenum/', step.choosenum ),
+    # path('practice/userinput/chooseperson/', step.chooseperson ),
+    # path('practice/userinput/1/getsong/', step.practice ),
+
+    # 업로드 후 2인이라고 할 때 crop
+    path('practice/<str:songname>/crop/', step.crop_and_extract, name = 'crop_and_extract' ),
+    path('practice/userinput/2/getsong/', step.step1main),
+    path('pracice/userinput/crop/', step.step1main),
+
+
+
+
+
+    path('practice/<str:songname>/<int:peoplenum>/', step.practice_detail, name = 'step0'),
+
+    path('practice/<str:songname>/crop/', step.crop_and_extract, name = 'step0'),
+
+
 
     # path('practice/<str:songname>/step1', finaltest.testmain, name='practice'),
     # path('practice/<str:songname>/step2', finaltest.testmain, name='practice'),

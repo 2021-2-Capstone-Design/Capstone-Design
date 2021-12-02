@@ -37,7 +37,7 @@ def songlist(request):
 
 
 
-def  practice(request):
+def practice(request):
     song_list = DanceInfo.objects.order_by('song')
     context = {'song_list': song_list}
     # inp = request.POST.get('param')
@@ -48,10 +48,11 @@ def  practice(request):
     return render(request, 'capstone/practice.html', context)
 
 
-def practice_detail(request, songname):
-    aa = str(songname)
-    #return HttpResponse( songname)
-    return render (request, 'capstone/practice_song.html', {'song' : songname})
+
+
+
+
+
 
 def step1(request, songname):
     aa = str(songname)

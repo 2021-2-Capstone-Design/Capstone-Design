@@ -1,6 +1,7 @@
 import cv2
 import sys
 import os
+from django.http import request
 import mediapipe as mp
 import math
 import numpy as np
@@ -45,11 +46,11 @@ def cropping():
                 scale = 0.00392
                 classes = None
 
-                with open("coco.names", 'r') as f:
+                with open("capstone/coco.names", 'r') as f:
                     classes = [line.strip() for line in f.readlines()]
 
                 COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
-                net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
+                net = cv2.dnn.readNet("capstone/yolov3.weights", "capstone/yolov3.cfg")
                 layer_names = net.getLayerNames()
                 output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
@@ -121,14 +122,14 @@ def cropping():
     print("Elapsed time : ", time.time() - start_time)
 
 
-def crop_main(songname):
+def crop_main( songname):
     global dance_name, file_path, saving_person1_path, saving_person2_path
 
     dance_name = songname
 
-    file_path = 'videos/' + dance_name + '.mp4'
-    saving_person1_path = 'crop/' + dance_name + '_1/'
-    saving_person2_path = 'crop/' + dance_name + '_2/'
+    file_path = 'capstone/videos/' + dance_name + '.mp4'
+    saving_person1_path = 'capstone/crop/' + dance_name + '_1/'
+    saving_person2_path = 'capstone/crop/' + dance_name + '_2/'
 
     try:
         if not os.path.exists(saving_person1_path):

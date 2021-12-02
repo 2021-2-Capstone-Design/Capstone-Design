@@ -20,7 +20,7 @@ record_video_path = 'capstone/record_videos/' + dance_name + '_record.mp4'
 video_path = 'capstone/videos/' + dance_name + '.mp4'
 
 def run_video():
-    global video_start_flag
+    global video_start_flag, record_flag
     media_player = vlc.MediaPlayer()
     media_file = video_path
     media = vlc.Media(media_file)
@@ -93,5 +93,6 @@ def start_practice2_main(songname):
     dance_name = songname
     record_video_path = 'capstone/record_videos/' + dance_name + '_record.mp4' 
     video_path = 'capstone/videos/' + dance_name + '.mp4'
+
     threading.Thread(target = record_video).start()
     threading.Thread(target = run_video).start()

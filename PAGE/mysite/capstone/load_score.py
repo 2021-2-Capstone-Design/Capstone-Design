@@ -13,11 +13,14 @@ fps = 0
 result_video = []
 result_user = []
 
+final_score = 0
+
 def load_score():
     global fps
     global result_video
     global result_user
     global result_path
+    global final_score
     file_video = open(coordinates_video_path, mode='rt', encoding='utf-8')
     file_user = open(coordinates_user_path, mode='rt', encoding='utf-8')
 
@@ -342,13 +345,13 @@ def load_score():
             timestamp_min_time_sec = (int)(timestamp_min_frame_num / fps)
             timestamp_min_time_msec = (float)((timestamp_min_frame_num % fps) / fps)
             timestamp_min_time = (float)(timestamp_min_time_sec) + timestamp_min_time_msec
-            timestamp_min_time_floor = math.floor(timestamp_min_time)
+            timestamp_min_time_floor = math.floor(timestamp_min_time) * 2
 
             # 방금까지 측정된 부분의 시간(종료지점)
             timestamp_max_time_sec = (int)(timestamp_max_frame_num / fps)
             timestamp_max_time_msec = (float)((timestamp_max_frame_num % fps) / fps)
             timestamp_max_time = (float)(timestamp_max_time_sec) + timestamp_max_time_msec
-            timestamp_max_time_ceil = math.ceil(timestamp_max_time)
+            timestamp_max_time_ceil = math.ceil(timestamp_max_time) * 2
 
             # 관절 좌표 어느부분(2부위)이 많이 틀렸는지 체크해서 알려주기
             joint_counter_sort = np.sort(joint_counter)[::-1]
@@ -409,18 +412,21 @@ def load_score():
     #         print(n)
     txt.write("total point : " + str(total_point / (8 * length) * 100))
     txt.close()
+    final_score = total_point / (8 * length) * 100 # 최종 점수
 
 
 def load_score_main(songname):
     global dance_name,coordinates_video_path,coordinates_user_path,result_path, fps
-
+    dance_name = songname
+    
     cap = cv2.VideoCapture('capstone/videos/'+ dance_name + '.mp4')
     fps = cap.get(cv2.CAP_PROP_FPS)
 
-    dance_name = songname
+    
     coordinates_video_path = 'capstone/original_coordinate/' + dance_name + '.txt'
     coordinates_user_path = 'capstone/user_coordinate/' + dance_name + '_record.txt'
     result_path = 'capstone/results/result_' + dance_name + '.txt'
 
     load_score()
+    return final_score
     # return render(request, 'capstone/practice.html')

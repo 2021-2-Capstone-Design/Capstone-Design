@@ -3,22 +3,65 @@ from django.shortcuts import render
 from . import start_practice
 from . import extract_record_video
 from . import load_score
+from . import start_practice2
+from . import extract_to_calculate
+from . import crop
+from . import extract_upload_video
 
+
+
+# 이미 db에 있는 영상일 때의 steps
+
+
+# 노래를 선택하면 노래에 대한 정보(?)를 보여주는 페이지
+def practice_detail(request, songname):
+  #return HttpResponse( songname)
+  return render (request, 'capstone/practice_song.html', {'song' : songname, })
 
 def step1main(request, songname):
-  start_practice.start_practice_main(songname)
+  start_practice2.start_practice2_main(songname)
   return render (request, 'capstone/step1.html', {'song' : songname})
 
 
 def step2main(request, songname):
-  extract_record_video.extract_record_video_main(songname)
-  load_score.load_score_main(songname)
-  return render (request, 'capstone/step2.html', {'song' : songname})
-
-
-
+  print("step2" + songname)
+  score = extract_to_calculate.extract_to_calculate_main(songname)
+  return render (request, 'capstone/step2.html', {'song' : songname, 'score' : score})
+  #extract_record_video.extract_record_video_main(songname)
+  #load_score.load_score_main(songname)
+  
 
 def step3main(request, songname):
   #start_practice.start_practice_main(songname)
   #dir = 'capstone/' + songname + '/step1/'
   return render (request, 'capstone/step3.html', {'song' : songname})
+
+
+
+# 사용자가 업로드 했을 때의 과정
+
+# 사용자 업로드--> 2인을 선택 했을 경우 해당 영상을 크롭
+def crop_and_extract(request, songname):
+  crop.crop_main(songname)
+  extract_upload_video.extract_upload_video_main(songname)
+  return render (request, 'capstone/croppage.html', {'song' : songname, })
+
+
+# 사용자 숫자 입력받는 페이지
+def choosenum(request, songpath):
+  songname = songpath.split('/')[-1][:-4]
+  return render(request, 'capstone/choosenum.html', {'song' : songname})
+
+
+# 2인일 경우 사람1인지 사람2인지 입력받는 페이지
+def chooseperson(request):
+  return render(request, 'capstone/chooseperson.html')
+
+
+  
+def userstep1main(request, songname):
+  print(1)
+  extract_upload_video.extract_upload_video_main(songname)
+  print(2)
+  start_practice2.start_practice2_main(songname)
+  return render (request, 'capstone/step1.html', {'song' : songname})
