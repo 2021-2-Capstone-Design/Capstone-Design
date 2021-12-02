@@ -9,6 +9,8 @@ from django.shortcuts import render
 
 dance_name = "" # sys.argv[1]
 select_person = "" # sys.argv[2]
+saving_path = ""
+path = ""
 
 mp_pose = mp.solutions.pose
 
@@ -83,14 +85,16 @@ def extract_multiperson_main(songname, num): #여기 변수 두개 받아와요 
 
     dance_name = songname
     select_person = num
+    saving_path = "capstone/original_coordinate/" + dance_name + ".txt"
 
-    if select_person == "1":
-        path = 'crop/' + dance_name + '_1/'  # user input multiperson
-        saving_path = "original_coordinate/" + dance_name + "_1.txt"  # user joint coordinate
-    if select_person == "2":
-        path = 'crop/' + dance_name + '_2/'
-        saving_path = "original_coordinate/" + dance_name + "_2.txt"  # user joint coordinate
 
+    if select_person == 1:
+        path = 'capstone/crop/' + dance_name + '_1/'  # user input multiperson
+          # user joint coordinate
+    elif select_person == 2:
+        path = 'capstone/crop/' + dance_name + '_2/'
+        
+    print(saving_path)
     video_extract()
     # 이 부분부터 start_practice2 로 연결
     # return render(request, 'capstone/practice.html')

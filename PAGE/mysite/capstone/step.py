@@ -7,7 +7,9 @@ from . import start_practice2
 from . import extract_to_calculate
 from . import crop
 from . import extract_upload_video
+from . import extract_multiperson
 
+import math
 
 
 # 이미 db에 있는 영상일 때의 steps
@@ -25,7 +27,8 @@ def step1main(request, songname):
 
 def step2main(request, songname):
   print("step2" + songname)
-  score = extract_to_calculate.extract_to_calculate_main(songname)
+  
+  score = math.ceil(extract_to_calculate.extract_to_calculate_main(songname))
   return render (request, 'capstone/step2.html', {'song' : songname, 'score' : score})
   #extract_record_video.extract_record_video_main(songname)
   #load_score.load_score_main(songname)
@@ -41,10 +44,20 @@ def step3main(request, songname):
 # 사용자가 업로드 했을 때의 과정
 
 # 사용자 업로드--> 2인을 선택 했을 경우 해당 영상을 크롭
-def crop_and_extract(request, songname):
+
+# 크롭
+def cropping(request, songname):
   crop.crop_main(songname)
-  extract_upload_video.extract_upload_video_main(songname)
+  #extract_upload_video.extract_upload_video_main(songname)
   return render (request, 'capstone/croppage.html', {'song' : songname, })
+
+# 사람1인지 사람2인지
+def extract(request, songname, num):
+  print("extract")
+  #crop.crop_main(songname)
+  extract_multiperson.extract_multiperson_main(songname,num)
+  return render (request, 'capstone/practice_song.html', {'song' : songname, })
+
 
 
 # 사용자 숫자 입력받는 페이지

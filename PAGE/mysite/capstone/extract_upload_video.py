@@ -70,7 +70,7 @@ def video_extract():
             else:  # no next frame (end point of video)
                 break
                 # Show video on screen
-            cv2.imshow('Dance Video', frame)
+            #cv2.imshow('Dance Video', frame)
 
             if cv2.waitKey(1) & 0xFF == 27:
                 break

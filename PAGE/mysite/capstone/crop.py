@@ -52,7 +52,9 @@ def cropping():
                 COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
                 net = cv2.dnn.readNet("capstone/yolov3.weights", "capstone/yolov3.cfg")
                 layer_names = net.getLayerNames()
-                output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
+                output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
+                
+                #output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
                 blob = cv2.dnn.blobFromImage(frame, scale, (416, 416), (0, 0, 0), True, crop=False)
                 net.setInput(blob)
@@ -131,6 +133,12 @@ def crop_main( songname):
     saving_person1_path = 'capstone/crop/' + dance_name + '_1/'
     saving_person2_path = 'capstone/crop/' + dance_name + '_2/'
 
+
+    print(dance_name)
+    print(file_path)
+    print(saving_person1_path)
+    print(saving_person2_path)
+
     try:
         if not os.path.exists(saving_person1_path):
             os.makedirs(saving_person1_path)
@@ -143,3 +151,4 @@ def crop_main( songname):
         print ('Already existence : ' + saving_person2_path)
 
     cropping()
+    print("crop done")

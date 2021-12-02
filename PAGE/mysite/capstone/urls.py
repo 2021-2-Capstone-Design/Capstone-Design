@@ -51,9 +51,10 @@ urlpatterns = [
     # path('practice/userinput/1/getsong/', step.practice ),
 
     # 업로드 후 2인이라고 할 때 crop
-    path('practice/<str:songname>/crop/', step.crop_and_extract, name = 'crop_and_extract' ),
-    path('practice/userinput/2/getsong/', step.step1main),
-    path('pracice/userinput/crop/', step.step1main),
+    path('practice/<str:songname>/crop/', step.cropping, name = 'crop_and_extract' ),
+    path('practice/<str:songname>/<int:num>/', step.extract, name = 'extract' ),
+    # path('practice/userinput/2/getsong/', step.step1main),
+    # path('pracice/userinput/crop/', step.step1main),
 
 
 
@@ -61,30 +62,21 @@ urlpatterns = [
 
     path('practice/<str:songname>/<int:peoplenum>/', step.practice_detail, name = 'step0'),
 
-    path('practice/<str:songname>/crop/', step.crop_and_extract, name = 'step0'),
+    # path('practice/<str:songname>/crop/', step.crop_and_extract, name = 'step0'),
 
+
+
+    
+
+
+   
+    path('login/',auth_views.LoginView.as_view(template_name='capstone/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('record/', views.record, name='record'),
 
 
     # path('practice/<str:songname>/step1', finaltest.testmain, name='practice'),
     # path('practice/<str:songname>/step2', finaltest.testmain, name='practice'),
     # path('practice/<str:songname>/', finaltest.testmain, name='practice'),
 
-
-
-    path('record/', views.record, name='record'),
-    #path('mypage/', views.mypage, name='mypage'),
-    # path('mypage/', finaltest.testmain, name='mypage'),
-    #path('mypage/', test2.testmain, name='mypage'),
-    #path('mypage/', test1.testmain, name='mypage'),
-    #path('waiting/', views.waiting, name='waiting'),
-   
-
-    path('login/',auth_views.LoginView.as_view(template_name='capstone/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    # path('team/', views.team, name='team'),
-    # path('firstpage/', views.first, name='first'),
-    # path('<int:team_id>/', views.teamDetail, name='detail'),
-    # path('team/create/<int:team_id>/', views.teamCreate, name='team_create')
-
-    # path('camera/',camera.
 ]
