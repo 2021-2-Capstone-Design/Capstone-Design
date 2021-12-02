@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+{% load static %}
+<html>
+    <head>
+        <title>Intro - CAU CAPSTONE</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+        <noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+    </head>
+    <body class="">
+
+        <!-- Wrapper -->
+            <div id="wrapper">
+
+                <!-- Header -->
+                    <header id="header" class="reveal alt">
+          						  <a href="{% url 'capstone:main' %}demo_intro" class="logo"><strong>중앙대 캡스톤</strong> <span>by 중안연가</span></a>
+                    </header>
+
+                <!-- Menu -->
+
+
+                <!-- Banner -->
+                    <section id="banner" class="major" style="background-position: center 0px;">
+                        <div class="inner">
+                            <header class="major">
+                                <h1>중안연가 안무연습</h1>
+                            </header>
+                            <div class="content">
+                                <p>PRACTICE - 원하는 춤을 업로드하거나 다운로드 받아 연습하세요!<br/>
+                                HISTORY - 측정된 나의 안무 기록을 확인하세요!</p>
+                                <ul class="actions">
+                                    <li><a href="#one" class="button next scrolly">Find song</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                <!-- Main -->
+                    <div id="main">
+
+                        <!-- One -->
+                            <section id="one" class="tiles">
+                                <article style="background-image: url(&quot;images/pic01.jpg&quot;);">
+                                    <span class="image" style="display: none;">
+                                        <img src="images/pic01.jpg" alt="">
+                                    </span>
+                                    <header class="major">
+                                        <h3><a href="{% url 'capstone:main' %}demo_practice" class="link">Practice</a></h3>
+                                        <p>업로드 또는 다운로드 받아서 연습하기</p>
+                                    </header>
+                                <a href="{% url 'capstone:main' %}demo_practice" class="link primary"></a></article>
+                                <article style="background-image: url(&quot;images/pic02.jpg&quot;);">
+                                    <span class="image" style="display: none;">
+                                        <img src="{% static 'images/pic02.jpg' %}" alt="">
+                                    </span>
+                                    <header class="major">
+                                        <h3><a href="{% url 'capstone:main' %}demo_history" class="link">History</a></h3>
+                                        <p>내 연습 기록 확인하기</p>
+                                    </header>
+                                <a href="{% url 'capstone:main' %}demo_history" class="link primary"></a></article>
+
+
+
+
+                            </section>
+
+
+                    </div>
+
+                <!-- Contact -->
+
+
+                <!-- Footer -->
+                    <footer id="footer">
+                        <div class="inner">
+                            <ul class="icons">
+
+
+
+                                <li><a href="https://github.com/2021-2-Capstone-Design/Capstone-Design" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+
+                            </ul>
+                            <ul class="copyright">
+                                <li>Chungang Univ.</li><li>Team: <a>Capstone Design #6</a></li>
+                            </ul>
+                        </div>
+                    </footer>
+
+            </div>
+
+        <!-- Scripts -->
+            <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+            <script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+            <script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+            <script src="{% static 'assets/js/browser.min.js' %}"></script>
+            <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+            <script src="{% static 'assets/js/util.js' %}"></script>
+            <script src="{% static 'assets/js/main.js' %}"></script>
+
+
+    </body>
+</html>

@@ -21,11 +21,9 @@ urlpatterns = [
 
 
     path('', views.main, name='main'),
-    path('firstpage/', views.first, name='first'),
-    path('team/', views.team, name='team'),
-    path('songlist/', views.songlist, name='songlist'),
-
-    path('practice/', views.practice, name='practice'),
+    path('demo_intro/', views.demo_intro, name='intro'),
+    path('demo_practice/', views.demo_practice, name='practice'),
+    path('demo_history/', views.demo_history, name='history'),
     # path('practice/', finaltest.testmain, name='practice'),
     #path('practice/', views.practice, name='practice'),
 

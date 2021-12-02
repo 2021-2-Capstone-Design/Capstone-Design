@@ -12,12 +12,20 @@ app_name = 'capstone'
 
 def main(request):
     # return render(request, 'capstone/test1.py')
-    return render(request, 'capstone/mainpage.html')
+    return render(request, 'capstone/demo_intro.html')
 
 
-def first(request):
+def demo_intro(request):
     # return HttpResponse("Hello world")
-    return render(request, 'capstone/firstpage.html')
+    return render(request, 'capstone/demo_intro.html')
+
+def demo_practice(request):
+    # return HttpResponse("Hello world")
+    return render(request, 'capstone/demo_practice.html')
+
+def demo_history(request):
+    # return HttpResponse("Hello world")
+    return render(request, 'capstone/demo_history.html')
 
 
 def team(request):
