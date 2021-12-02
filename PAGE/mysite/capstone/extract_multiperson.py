@@ -83,6 +83,7 @@ def video_extract():
 
 def extract_multiperson_main(songname, num): #여기 변수 두개 받아와요 ㅜㅜ 이거를 songname하고 num을 합쳐서 하나로 받아와서 자르던지..? 뭐 해야할듯..
     global dance_name, select_person, path, saving_path, flag
+    flag = 0
 
     dance_name = songname
     select_person = num

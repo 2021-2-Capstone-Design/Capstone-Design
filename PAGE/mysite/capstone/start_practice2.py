@@ -75,7 +75,7 @@ def record_video():
             cv2.putText(img, '1',(100,100),cv2.FONT_HERSHEY_SIMPLEX,3,(255,0,0),2,cv2.LINE_AA)
         else:
             cv2.putText(img, 'recording',(10,10),cv2.FONT_HERSHEY_SIMPLEX,0.5,(255,0,0),2,cv2.LINE_AA)
-        vlc_play_flag = True
+            vlc_play_flag = True
         cv2.imshow('Webcam', img)
         cv2.setWindowProperty('Webcam', cv2.WND_PROP_TOPMOST, 1)
         cv2.resizeWindow("Webcam", 320, 180)
@@ -89,7 +89,8 @@ def record_video():
     cv2.destroyAllWindows()
 
 def start_practice2_main(songname):
-    global dance_name, record_video_path, video_path
+    global dance_name, record_video_path, video_path,vlc_play_flag
+    vlc_play_flag = False
     dance_name = songname
     record_video_path = 'capstone/record_videos/' + dance_name + '_record.mp4' 
     video_path = 'capstone/videos/' + dance_name + '.mp4'

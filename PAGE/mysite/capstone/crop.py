@@ -128,6 +128,7 @@ def cropping():
 
 def crop_main( songname):
     global dance_name, file_path, saving_person1_path, saving_person2_path, flag
+    flag = 0
 
     dance_name = songname
 

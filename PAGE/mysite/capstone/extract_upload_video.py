@@ -84,6 +84,7 @@ def video_extract():
 
 def extract_upload_video_main(songname):
     global dance_name, path, saving_path, flag
+    flag = 0
 
     dance_name = songname
     path = "capstone/videos/" + dance_name + ".mp4"  # 기존 영상
