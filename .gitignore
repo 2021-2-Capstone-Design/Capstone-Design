@@ -5,3 +5,4 @@ Data/
 
 *.pyc
 mysite/capstone/__pycache__/
+PAGE/mysite/capstone/yolov3.weights

@@ -19,13 +19,36 @@ def demo_intro(request):
     # return HttpResponse("Hello world")
     return render(request, 'capstone/demo_intro.html')
 
-def demo_practice(request):
+def practice(request):
     # return HttpResponse("Hello world")
-    return render(request, 'capstone/demo_practice.html')
+    return render(request, 'capstone/practice.html')
+
+
+def demo_practice(request):
+    song_list = DanceInfo.objects.order_by('song')
+
+    # return HttpResponse("Hello world")
+    return render(request, 'capstone/demo_practice.html', context={'song_list': song_list})
+
+def demo_upload(request):
+    # return HttpResponse("Hello world")
+    return render(request, 'capstone/demo_upload.html')
 
 def demo_history(request):
     # return HttpResponse("Hello world")
     return render(request, 'capstone/demo_history.html')
+
+def demo_extract(request):
+    # return HttpResponse("Hello world")
+    return render(request, 'capstone/demo_extract.html')
+
+def demo_film(request):
+    # return HttpResponse("Hello world")
+    return render(request, 'capstone/demo_film.html')
+
+def demo_score(request, songname):
+    # return HttpResponse("Hello world")
+    return render(request, 'capstone/demo_score.html')
 
 
 def team(request):

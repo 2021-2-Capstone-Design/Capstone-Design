@@ -29,7 +29,7 @@ def step2main(request, songname):
   print("step2" + songname)
   
   score = math.ceil(extract_to_calculate.extract_to_calculate_main(songname))
-  return render (request, 'capstone/step2.html', {'song' : songname, 'score' : score})
+  return render (request, 'capstone/demo_score.html', {'song' : songname, 'score' : score})
   #extract_record_video.extract_record_video_main(songname)
   #load_score.load_score_main(songname)
   
@@ -40,7 +40,6 @@ def step3main(request, songname):
   return render (request, 'capstone/step3.html', {'song' : songname})
 
 
-
 # 사용자가 업로드 했을 때의 과정
 
 # 사용자 업로드--> 2인을 선택 했을 경우 해당 영상을 크롭
@@ -49,21 +48,27 @@ def step3main(request, songname):
 def cropping(request, songname):
   crop.crop_main(songname)
   #extract_upload_video.extract_upload_video_main(songname)
-  return render (request, 'capstone/croppage.html', {'song' : songname, })
+  while crop.flag == 0:
+    if crop.flag == 1:
+      break
+  return render (request, 'capstone/demo_extract.html', {'song' : songname, })
 
 # 사람1인지 사람2인지
 def extract(request, songname, num):
   print("extract")
   #crop.crop_main(songname)
   extract_multiperson.extract_multiperson_main(songname,num)
-  return render (request, 'capstone/practice_song.html', {'song' : songname, })
-
+  while extract_multiperson.flag == 0:
+    if extract_multiperson.flag == 1:
+      break
+  start_practice2.start_practice2_main(songname)
+  return render (request, 'capstone/demo_film.html', {'song' : songname, })
 
 
 # 사용자 숫자 입력받는 페이지
 def choosenum(request, songpath):
   songname = songpath.split('/')[-1][:-4]
-  return render(request, 'capstone/choosenum.html', {'song' : songname})
+  return render(request, 'capstone/demo_upload.html', {'song' : songname})
 
 
 # 2인일 경우 사람1인지 사람2인지 입력받는 페이지
@@ -73,8 +78,9 @@ def chooseperson(request):
 
   
 def userstep1main(request, songname):
-  print(1)
   extract_upload_video.extract_upload_video_main(songname)
-  print(2)
+  while extract_upload_video.flag == 0:
+    if extract_upload_video.flag == 1:
+      break
   start_practice2.start_practice2_main(songname)
-  return render (request, 'capstone/step1.html', {'song' : songname})
+  return render (request, 'capstone/demo_film.html', {'song' : songname})

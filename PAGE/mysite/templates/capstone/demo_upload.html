@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+{% load static %}
+<html>
+	<head>
+		<title>Upload - CAU CAPSTONE</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+            <a href="{% url 'capstone:main' %}demo_intro" class="logo"><strong>중앙대 캡스톤</strong> <span>by 중안연가</span></a>
+					</header>
+
+				<!-- Banner -->
+				<!-- Note: The "styleN" class below should match that of the header element. -->
+					<section id="banner" class="style2">
+						<div class="inner">
+							<span class="image">
+								<img src="{% static 'images/pic07.jpg' %}" alt="" />
+							</span>
+							<header class="major">
+								<h1>Upload</h1>
+							</header>
+							<div class="content">
+								<p>UPLOAD VIDEO YOU WANT.<br />
+								CHOOSE 1 OR 2 PEOPLE!</p>
+							</div>
+						</div>
+					</section>
+
+				<!-- Main -->
+					<div id="main" class="alt">
+
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<form>
+										<ul class="actions">
+											<input type="button" value="Video with ONE Person" onclick="location.href = '{% url 'capstone:practice' %}{{song}}/userinput/step1/'">
+										</ul>
+										<ul class="actions">
+										  <input type="button" value="Video with TWO People" onclick="location.href = '{% url 'capstone:practice' %}{{song}}/crop/'">
+										</ul>
+									</form>
+								</div>
+							</section>
+
+					</div>
+
+					<!-- Footer -->
+							<footer id="footer">
+									<div class="inner">
+											<ul class="icons">
+
+
+
+													<li><a href="https://github.com/2021-2-Capstone-Design/Capstone-Design" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+
+											</ul>
+											<ul class="copyright">
+													<li>Chungang Univ.</li><li>Team: <a>Capstone Design #6</a></li>
+											</ul>
+									</div>
+							</footer>
+			</div>
+
+			<!-- Scripts -->
+				<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+				<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+				<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+				<script src="{% static 'assets/js/browser.min.js' %}"></script>
+				<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+				<script src="{% static 'assets/js/util.js' %}"></script>
+				<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>

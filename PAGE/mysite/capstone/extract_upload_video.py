@@ -8,6 +8,7 @@ from time import sleep
 dance_name = "" # sys.argv[1]
 path = "" # "videos/" + dance_name + ".mp4"  # 기존 영상
 saving_path = "" # "original_coordinate/" + dance_name + ".txt"
+flag = 0
 
 mp_pose = mp.solutions.pose
 
@@ -82,11 +83,12 @@ def video_extract():
     print('*****extract success*****')
 
 def extract_upload_video_main(songname):
-    global dance_name, path, saving_path
+    global dance_name, path, saving_path, flag
 
     dance_name = songname
     path = "capstone/videos/" + dance_name + ".mp4"  # 기존 영상
     saving_path = "capstone/original_coordinate/" + dance_name + ".txt"
 
     video_extract()
+    flag = 1
     #이 부분부터 start_practice2 로 연결

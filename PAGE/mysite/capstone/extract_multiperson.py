@@ -11,6 +11,7 @@ dance_name = "" # sys.argv[1]
 select_person = "" # sys.argv[2]
 saving_path = ""
 path = ""
+flag = 0
 
 mp_pose = mp.solutions.pose
 
@@ -81,7 +82,7 @@ def video_extract():
     print('*****extract success*****')
 
 def extract_multiperson_main(songname, num): #여기 변수 두개 받아와요 ㅜㅜ 이거를 songname하고 num을 합쳐서 하나로 받아와서 자르던지..? 뭐 해야할듯..
-    global dance_name, select_person, path, saving_path
+    global dance_name, select_person, path, saving_path, flag
 
     dance_name = songname
     select_person = num
@@ -96,5 +97,6 @@ def extract_multiperson_main(songname, num): #여기 변수 두개 받아와요 
         
     print(saving_path)
     video_extract()
+    flag = 1
     # 이 부분부터 start_practice2 로 연결
     # return render(request, 'capstone/practice.html')

@@ -90,12 +90,9 @@
       <div id="choosemenu" style=" margin:0 auto; padding-left: 50px; padding-top: 100px; padding-bottom: 100px; margin-top : 100px; width : 400px; height : 400px">
         <h1>인원을 선택하세요</h1>
         <input type="button" value="1인" onclick="location.href = '{% url 'capstone:practice' %}{{song}}/userinput/step1/'">
+        <input type="button" value="2인" onclick="alert('크롭 중입니다.')">
 
-
-
-        <input type="button" value="2인" onclick="location.href = '{% url 'capstone:practice' %}{{song}}/crop/'">
-
-          <!-- 
+          <!--
           <p><a href="{% url 'capstone:practice' %}{{ song }}/step1/">let's start!</a></p>
             <input type="button" value="step1" style="position:absolute; top : 60%; right: 35%;font-size: 30px; padding-left: 30px; padding-right: 30px;"
             onclick="location.href = '{% url 'capstone:practice' %}{{ song }}/step1/'"> -->
@@ -103,9 +100,9 @@
 
       </div>
 
-      
+
     </div>
-    
+
     <!-- http://localhost:8000/anmu/practice/person_back/step2/ -->
     <!-- '{% url 'capstone:practice' %}}{{ song }}/step2/' -->
     <!-- 'http://localhost:8000/anmu/practice/person_back/step2/' -->

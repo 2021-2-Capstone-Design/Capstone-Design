@@ -20,6 +20,8 @@ extract_time_by_per_frame = 1
 frame_counter = 0
 frame_number = 1
 
+flag = 0
+
 
 def cropping():
     global frame_counter
@@ -125,7 +127,7 @@ def cropping():
 
 
 def crop_main( songname):
-    global dance_name, file_path, saving_person1_path, saving_person2_path
+    global dance_name, file_path, saving_person1_path, saving_person2_path, flag
 
     dance_name = songname
 
@@ -144,11 +146,15 @@ def crop_main( songname):
             os.makedirs(saving_person1_path)
     except OSError:
         print ('Already existence : ' + saving_person1_path)
+        flag = 1
     try:
         if not os.path.exists(saving_person2_path):
             os.makedirs(saving_person2_path)
     except OSError:
         print ('Already existence : ' + saving_person2_path)
+        flag = 1
+
 
     cropping()
+    flag = 1
     print("crop done")

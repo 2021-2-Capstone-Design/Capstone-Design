@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+{% load static %}
+<html>
+	<head>
+		<title>Extract - CAU CAPSTONE</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+            <a href="{% url 'capstone:main' %}demo_intro" class="logo"><strong>중앙대 캡스톤</strong> <span>by 중안연가</span></a>
+					</header>
+
+				<!-- Banner -->
+				<!-- Note: The "styleN" class below should match that of the header element. -->
+					<section id="banner" class="style2">
+						<div class="inner">
+							<span class="image">
+								<img src="{% static 'images/pic07.jpg' %}" alt="" />
+							</span>
+							<header class="major">
+								<h1>Extract</h1>
+							</header>
+							<div class="content">
+								<p>PICK SOMEONE YOU WILL FOLLOW.<br />
+								CHOOSE 1 OR 2 !</p>
+                <form>
+                  <ul class="actions">
+                    <input type="button" value="LEFT" onclick="location.href = '{% url 'capstone:practice' %}{{song}}/1/'" style="margin-left : 20px">
+                    <input type="button" value="RIGHT" onclick="location.href = '{% url 'capstone:practice' %}{{song}}/2/'" style="margin-left : 10px">
+                  </ul>
+                </form>
+							</div>
+						</div>
+					</section>
+
+
+
+			</div>
+
+			<!-- Scripts -->
+				<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+				<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+				<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+				<script src="{% static 'assets/js/browser.min.js' %}"></script>
+				<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+				<script src="{% static 'assets/js/util.js' %}"></script>
+				<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>
