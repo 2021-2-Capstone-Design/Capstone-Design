@@ -8,6 +8,7 @@ from . import extract_to_calculate
 from . import crop
 from . import extract_upload_video
 from . import extract_multiperson
+from .models import *
 
 import math
 
@@ -26,10 +27,19 @@ def step1main(request, songname):
 
 
 def step2main(request, songname):
-  print("step2" + songname)
+  print("!!!!!!!!!!step2    " + songname)
   
-  score = math.ceil(extract_to_calculate.extract_to_calculate_main(songname))
-  return render (request, 'capstone/demo_score.html', {'song' : songname, 'score' : score})
+  scr = math.ceil(extract_to_calculate.extract_to_calculate_main(songname))
+  print(scr)
+  # scr = Record.objects.all()
+
+  Record.objects.create(
+    song = songname,
+    score = scr
+  )
+
+
+  return render (request, 'capstone/demo_score.html', {'song' : songname, 'score' : scr})
   #extract_record_video.extract_record_video_main(songname)
   #load_score.load_score_main(songname)
   

@@ -35,8 +35,9 @@ def demo_upload(request):
     return render(request, 'capstone/demo_upload.html')
 
 def demo_history(request):
+    record_list = Record.objects.order_by() # Team.objects.all()
     # return HttpResponse("Hello world")
-    return render(request, 'capstone/demo_history.html')
+    return render(request, 'capstone/demo_history.html',{'record_list': record_list})
 
 def demo_extract(request):
     # return HttpResponse("Hello world")

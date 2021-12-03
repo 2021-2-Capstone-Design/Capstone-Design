@@ -56,10 +56,18 @@
 
 
 
-
-
+										{% if record_list %}
+										<ul>
+										{% for record in record_list %}
+											<p style = "font-size :20px;">{{ record.song }} , {{ record.score }}</p>
+										{% endfor %}
+										</ul>
+										{% else %}
+											<p>노래가 없습니다.</p>
+										{% endif %}
+<!-- 
   									<p>YEJI - River : 87.32</p>
-  									<p>xxx - Person_back : 98.93</p>
+  									<p>xxx - Person_back : 98.93</p> -->
 
 
 
