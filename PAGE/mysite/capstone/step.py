@@ -1,8 +1,6 @@
 from django.shortcuts import render
 
-from . import start_practice
-from . import extract_record_video
-from . import load_score
+
 from . import start_practice2
 from . import extract_to_calculate
 from . import crop
@@ -16,10 +14,10 @@ import math
 # 이미 db에 있는 영상일 때의 steps
 
 
-# 노래를 선택하면 노래에 대한 정보(?)를 보여주는 페이지
-def practice_detail(request, songname):
-  #return HttpResponse( songname)
-  return render (request, 'capstone/practice_song.html', {'song' : songname, })
+# # 노래를 선택하면 노래에 대한 정보(?)를 보여주는 페이지
+# def practice_detail(request, songname):
+#   #return HttpResponse( songname)
+#   return render (request, 'capstone/practice_song.html', {'song' : songname, })
 
 def step1main(request, songname):
   print("start practice")
@@ -44,10 +42,10 @@ def step2main(request, songname):
   #load_score.load_score_main(songname)
   
 
-def step3main(request, songname):
-  #start_practice.start_practice_main(songname)
-  #dir = 'capstone/' + songname + '/step1/'
-  return render (request, 'capstone/step3.html', {'song' : songname})
+# def step3main(request, songname):
+#   #start_practice.start_practice_main(songname)
+#   #dir = 'capstone/' + songname + '/step1/'
+#   return render (request, 'capstone/step3.html', {'song' : songname})
 
 
 # 사용자가 업로드 했을 때의 과정
@@ -82,8 +80,8 @@ def choosenum(request, songpath):
 
 
 # 2인일 경우 사람1인지 사람2인지 입력받는 페이지
-def chooseperson(request):
-  return render(request, 'capstone/chooseperson.html')
+# def chooseperson(request):
+#   return render(request, 'capstone/chooseperson.html')
 
 
   
