@@ -110,7 +110,8 @@ def extract_to_calculate_main(songname):
     print("video extract success")
 
     time.sleep(1)
-    return load_score.load_score_main(songname)
+    scr, comment = load_score.load_score_main(songname)
+    return math.ceil(scr), comment
     print("score done")
 
     #return render(request, 'capstone/waiting.html')

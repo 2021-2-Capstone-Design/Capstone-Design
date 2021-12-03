@@ -1,1 +1,1 @@
-total point : 100.0
+total point : 95.23809523809523

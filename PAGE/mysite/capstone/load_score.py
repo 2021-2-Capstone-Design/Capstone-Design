@@ -14,6 +14,9 @@ result_video = []
 result_user = []
 
 final_score = 0
+final_comment = []
+
+
 
 def load_score():
     global fps
@@ -405,6 +408,7 @@ def load_score():
             # 텍스트 파일에 틀린 시간 적어줌
             timestamp = "대략 " + str(timestamp_min_time_floor) + "초 ~ " + str(timestamp_max_time_ceil) + "초 : "
             comment = timestamp + jointstamp + " 부분을 잘 보세요."
+            final_comment.append(comment)
             txt.write(comment)
             txt.write("\n")
 
@@ -417,6 +421,7 @@ def load_score():
 
 def load_score_main(songname):
     global dance_name,coordinates_video_path,coordinates_user_path,result_path, fps
+    
     dance_name = songname
     
     cap = cv2.VideoCapture('capstone/videos/'+ dance_name + '.mp4')
@@ -427,6 +432,12 @@ def load_score_main(songname):
     coordinates_user_path = 'capstone/user_coordinate/' + dance_name + '_record.txt'
     result_path = 'capstone/results/result_' + dance_name + '.txt'
 
+    global final_comment 
+    final_comment = [] # 이 함수가 두번째로 실행 될 때 초기화 시켜야함. 안그러면 전의 내용이 있다
+
+
     load_score()
-    return final_score
+    
+    print(final_comment)
+    return final_score, final_comment
     # return render(request, 'capstone/practice.html')

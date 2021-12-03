@@ -28,9 +28,9 @@ def step1main(request, songname):
 
 def step2main(request, songname):
   print("!!!!!!!!!!step2    " + songname)
-  
-  scr = math.ceil(extract_to_calculate.extract_to_calculate_main(songname))
-  print(scr)
+
+  scr , comment= extract_to_calculate.extract_to_calculate_main(songname)
+  print(comment)
   # scr = Record.objects.all()
 
   Record.objects.create(
@@ -38,8 +38,7 @@ def step2main(request, songname):
     score = scr
   )
 
-
-  return render (request, 'capstone/demo_score.html', {'song' : songname, 'score' : scr})
+  return render (request, 'capstone/demo_score.html', {'song' : songname, 'score' : scr, 'comment_list':comment})
   #extract_record_video.extract_record_video_main(songname)
   #load_score.load_score_main(songname)
   
