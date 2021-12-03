@@ -47,16 +47,16 @@
 
                         <!-- One -->
                             <section id="one" class="tiles">
-                                <article style="background-image: url(&quot;images/pic01.jpg&quot;);">
+                                <article style="background-image: url(&quot;{% static 'images/pic01.jpg' %}&quot;);">
                                     <span class="image" style="display: none;">
-                                        <img src="images/pic01.jpg" alt="">
+                                        <img src="{% static 'images/pic02.jpg' %}" alt="">
                                     </span>
                                     <header class="major">
                                         <h3><a href="{% url 'capstone:main' %}demo_practice" class="link">Practice</a></h3>
                                         <p>업로드 또는 다운로드 받아서 연습하기</p>
                                     </header>
                                 <a href="{% url 'capstone:main' %}demo_practice" class="link primary"></a></article>
-                                <article style="background-image: url(&quot;images/pic02.jpg&quot;);">
+                                <article style="background-image: url(&quot;{% static 'images/pic02.jpg' %}&quot;);">
                                     <span class="image" style="display: none;">
                                         <img src="{% static 'images/pic02.jpg' %}" alt="">
                                     </span>

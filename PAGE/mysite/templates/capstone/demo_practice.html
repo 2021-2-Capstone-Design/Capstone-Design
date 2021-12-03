@@ -76,9 +76,22 @@
                               <!-- <li><a href="{% url 'capstone:practice' %}{{ song.song }}/">{{ song.song }} , {{ song.artist }}, {{ song.time }}</li> -->
 
                            <section>
-                              <a href="{% url 'capstone:practice' %}{{ song.song }}/" class="image">
+
+
+
+
+
+                              <a href="{% url 'capstone:practice' %}{{ song.song }}/step1/" class="image">
+
                                  <img src="{% static 'images' %}/{{ song.song }}.jpg" alt="" data-position="center center" />
+                                 
+                              
+                              
                               </a>
+
+
+
+                              
                               <div class="content">
                                  <div class="inner">
                                     <!-- <header class="major"> {{ song.song }} , {{ song.artist }}, {{ song.time }} -->
