@@ -22,6 +22,7 @@ def practice_detail(request, songname):
   return render (request, 'capstone/practice_song.html', {'song' : songname, })
 
 def step1main(request, songname):
+  print("start practice")
   start_practice2.start_practice2_main(songname)
   return render (request, 'capstone/demo_film.html', {'song' : songname})
 

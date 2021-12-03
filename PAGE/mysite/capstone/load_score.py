@@ -421,19 +421,22 @@ def load_score():
 
 def load_score_main(songname):
     global dance_name,coordinates_video_path,coordinates_user_path,result_path, fps
-    
+    global result_video, result_user, final_comment
+    # fps = 0
     dance_name = songname
-    
+    result_video = []
+    result_user = []
+
+    #final_score = 0
+    final_comment = []
+
+
     cap = cv2.VideoCapture('capstone/videos/'+ dance_name + '.mp4')
     fps = cap.get(cv2.CAP_PROP_FPS)
 
-    
     coordinates_video_path = 'capstone/original_coordinate/' + dance_name + '.txt'
     coordinates_user_path = 'capstone/user_coordinate/' + dance_name + '_record.txt'
     result_path = 'capstone/results/result_' + dance_name + '.txt'
-
-    global final_comment 
-    final_comment = [] # 이 함수가 두번째로 실행 될 때 초기화 시켜야함. 안그러면 전의 내용이 있다
 
 
     load_score()

@@ -20,6 +20,7 @@ record_video_path = 'capstone/record_videos/' + dance_name + '_record.mp4'
 video_path = 'capstone/videos/' + dance_name + '.mp4'
 
 def run_video():
+    print("run")
     global video_start_flag, record_flag
     media_player = vlc.MediaPlayer()
     media_file = video_path
@@ -40,6 +41,7 @@ def run_video():
     return
     
 def record_video():
+    print("record")
     count = 0
     global vlc_play_flag, flag
     root = tk.Tk()
@@ -89,8 +91,12 @@ def record_video():
     cv2.destroyAllWindows()
 
 def start_practice2_main(songname):
-    global dance_name, record_video_path, video_path,vlc_play_flag
+    global dance_name, record_video_path, video_path,vlc_play_flag, record_flag, video_start_flag
+
     vlc_play_flag = False
+    record_flag = 1
+    video_start_flag = 0
+    
     dance_name = songname
     record_video_path = 'capstone/record_videos/' + dance_name + '_record.mp4' 
     video_path = 'capstone/videos/' + dance_name + '.mp4'

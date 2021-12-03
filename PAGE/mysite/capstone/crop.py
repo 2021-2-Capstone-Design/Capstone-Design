@@ -19,7 +19,6 @@ saving_person2_path = "" # 'crop/' + dance_name + '_2/'
 extract_time_by_per_frame = 1
 frame_counter = 0
 frame_number = 1
-
 flag = 0
 
 
@@ -128,13 +127,18 @@ def cropping():
 
 def crop_main( songname):
     global dance_name, file_path, saving_person1_path, saving_person2_path, flag
-    flag = 0
-
+    global extract_time_by_per_frame, frame_counter, frame_number
+   
     dance_name = songname
 
     file_path = 'capstone/videos/' + dance_name + '.mp4'
     saving_person1_path = 'capstone/crop/' + dance_name + '_1/'
     saving_person2_path = 'capstone/crop/' + dance_name + '_2/'
+
+    extract_time_by_per_frame = 1
+    frame_counter = 0
+    frame_number = 1
+    flag = 0
 
 
     print(dance_name)
