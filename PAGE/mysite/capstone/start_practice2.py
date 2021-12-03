@@ -62,7 +62,6 @@ def record_video():
         if record_flag == 1:
             success, img = webcam.read()
             #imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            img = cv2.flip(img,1)
             out.write(img)
         else:
             out.release()
@@ -80,7 +79,6 @@ def record_video():
             vlc_play_flag = True
         cv2.imshow('Webcam', img)
         cv2.setWindowProperty('Webcam', cv2.WND_PROP_TOPMOST, 1)
-        cv2.resizeWindow("Webcam", 320, 180)
         cv2.moveWindow('Webcam', screen_width - 660, screen_height - 380)
         if cv2.waitKey(1) & 0xFF == 27:
             out.release()

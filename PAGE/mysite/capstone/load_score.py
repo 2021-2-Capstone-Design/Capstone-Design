@@ -316,6 +316,7 @@ def load_score():
                 # 텍스트 파일에 틀린 시간 적어줌
                 timestamp = "대략 " + str(timestamp_min_time_floor) + "초 ~ " + str(timestamp_max_time_ceil) + "초 : "
                 comment = timestamp + jointstamp + " 부분을 잘 보세요."
+                final_comment.append(comment)
                 txt.write(comment)
                 txt.write("\n")
 
@@ -348,13 +349,13 @@ def load_score():
             timestamp_min_time_sec = (int)(timestamp_min_frame_num / fps)
             timestamp_min_time_msec = (float)((timestamp_min_frame_num % fps) / fps)
             timestamp_min_time = (float)(timestamp_min_time_sec) + timestamp_min_time_msec
-            timestamp_min_time_floor = math.floor(timestamp_min_time) * 2
+            timestamp_min_time_floor = math.floor(timestamp_min_time * 2)
 
             # 방금까지 측정된 부분의 시간(종료지점)
             timestamp_max_time_sec = (int)(timestamp_max_frame_num / fps)
             timestamp_max_time_msec = (float)((timestamp_max_frame_num % fps) / fps)
             timestamp_max_time = (float)(timestamp_max_time_sec) + timestamp_max_time_msec
-            timestamp_max_time_ceil = math.ceil(timestamp_max_time) * 2
+            timestamp_max_time_ceil = math.ceil(timestamp_max_time * 2)
 
             # 관절 좌표 어느부분(2부위)이 많이 틀렸는지 체크해서 알려주기
             joint_counter_sort = np.sort(joint_counter)[::-1]
@@ -440,7 +441,7 @@ def load_score_main(songname):
 
 
     load_score()
-    
+
     print(final_comment)
     return final_score, final_comment
     # return render(request, 'capstone/practice.html')
