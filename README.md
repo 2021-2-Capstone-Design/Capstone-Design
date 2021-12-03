@@ -3,8 +3,9 @@
 1. 가상환경 만들기 & 장고 설치 : [점프투장고](https://wikidocs.net/book/4223) 참초
 2. git clone https://github.com/2021-2-Capstone-Design/Capstone-Design
 3. PAGE/mysite 의 내용을 1번에서 만든 projects/mysite 폴더에 이동시킨다.
-4. cmd 창에서 mysite 임력 후 python manage.py runserver 실행
-5. 주소창에 http://localhost:8000/anmu/ 입력
+4. [yolov3.weights](https://pjreddie.com/media/files/yolov3.weights) 다운후 mysite 폴더로 
+5. cmd 창에서 mysite 임력 후 python manage.py runserver 실행
+6. 주소창에 http://localhost:8000/anmu/ 입력
 ![image](https://user-images.githubusercontent.com/76734572/144621000-d3d93cd8-69ed-4306-89e1-e4f1a2459540.png)
 
 
